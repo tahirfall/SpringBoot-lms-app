@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+		<h3 th:text="${title}" class="text-center mt-5 mb-5">title</h3>
+
+		<div class="d-flex justify-content-end mb-2">
+			<a class="btn btn-warning" th:href="@{/books/list-books}">&laquo;
+				Return</a>
+		</div>
+
+		<div class="col-8 mx-auto mb-3	">
+			<form th:action="@{/books/create-book}" th:object="${book}"
+				method="POST">
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="title">title</label> <input type="text"
+							class="form-control" id="title" placeholder="title... "
+							th:field="*{title}" th:value="${title}">
+							<small class="text-danger"
+							th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></small>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="publisher">Publisher</label> <input type="text"
+							class="form-control" id="publisher"
+							placeholder="publisher..." th:field="*{publisher}"
+							th:value="${publisher}">
+							<small class="text-danger"
+							th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}"></small>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="isbn">ISBN</label> <input type="text"
+						class="form-control" id="isbn" placeholder="ISBN..."
+						th:field="*{ISBN}" th:value="${ISBN}">
+						<small class="text-danger"
+							th:if="${#fields.hasErrors('ISBN')}" th:errors="*{ISBN}"></small>
+				</div>
+				<div class="form-group">
+					<label for="author">Author</label>
+						<select id="author" class="form-control" name="author">
+						<option selected disabled="disabled">Author...</option>
+						<option th:each="author : ${authors}" th:value="${author.id}"
+							th:text="${author.name}" th:field="*{author}">Author...</option>
+					</select>
+					<small class="text-danger"
+							th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></small>
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="habilitar">¿Disponible?</label>
+							<input type="checkbox" id="habilitar" th:field="*{disponible}">
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary">Save Book</button>
+			</form>
+		</div>
+
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

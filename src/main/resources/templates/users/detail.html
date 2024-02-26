@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container-fluid mb-4">
+		<h3 th:text="${title}" class="text-center mt-5 mb-5">title</h3>
+
+		<div class="col-11 mx-auto my-2">
+
+			<div class="d-flex justify-content-end my-2">
+				<a class="btn btn-warning" th:href="@{/users/list-users}">&laquo;
+					Back</a>
+			</div>
+
+			<div class="card">
+				<div class="card-body">
+					<ul class="list-group">
+						<li class="list-group-item"><span class="font-weight-bold">Name:</span>
+							<p class="m-0" style="display: inline-block;"
+								th:text="${user.name}">
+							</p>
+						</li>
+						
+						<li class="list-group-item"><span class="font-weight-bold">Email:</span>
+							<p class="m-0" style="display: inline-block;"
+								th:text="${user.email}">
+							</p>
+						</li>
+						
+						<li class="list-group-item"><span class="font-weight-bold">Address:</span>
+							<p class="m-0" style="display: inline-block;"
+								th:text="${user.address}">
+							</p>
+						</li>
+					</ul>
+				</div>
+				<div class="card-footer">
+					<p th:if="${#lists.isEmpty(user.loans)}"
+						class="alert alert-info m-4"
+						th:text="'There are no loans assigned to the user ' + ${user.name}">
+					</p>
+
+					<table th:if="${not #lists.isEmpty(user.loans)}"
+						class="table table-bordered table-striped my-4 text-center">
+						<thead class="thead-dark">
+							<tr>
+								<th>#</th>
+								<th>Loan Date</th>
+								<th>Return Date</th>
+								<th>Returned</th>
+								<th>Loan Detail </th>
+								<th>Edit Loan</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="loan : ${user.loans}">
+								<td th:text="${loan.id}"></td>
+								<td th:text="${#dates.format(loan.loanDate, 'dd-MMM-yyyy')}"></td>
+								<td th:text="${#dates.format(loan.returnDate, 'dd-MMM-yyyy')}"></td>
+								<td th:text="${loan.returned} ? 'Si' : 'No'"></td>
+								<td><a class="btn btn-outline-primary"
+									th:text="'Loan Detail'"
+									th:href="@{'/loans/detail/' +${loan.id}}"></a></td>
+								<td><a class="btn btn-warning"
+									th:text="'Edit Loan'"
+									th:href="@{'/loans/detail/' +${loan.id}}"></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

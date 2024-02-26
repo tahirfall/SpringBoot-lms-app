@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	
+	<h3 th:text="${title}" class="text-center mt-5 "></h3>
+
+	<div class="col-8 mx-auto my-5">
+		<form th:action="@{/loans/create-loan}" th:object="${loan}" method="POST">
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="fecha-devolucion">Returned Date</label>
+					<input type="date" class="form-control" id="fecha-devolucion" 
+					th:field="*{returnDate}" th:value="${returnDate}">
+					<small class="text-danger"
+							th:if="${#fields.hasErrors('returnDate')}"
+							th:errors="*{returnDate}"></small>
+				</div>
+			
+				<div class="form-group col-md-6">												
+					<label for="devuelto">Check the box only if the book has already been returned!</label>
+					<br />
+					<input type="checkbox" id="devuelto" th:field="*{returned}" th:value="${returned}"> 
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="user">User</label>
+					<select id="user" class="form-control" name="user">
+						<option selected disabled="disabled">User...</option>
+						<option th:each="user : ${users}" th:field="*{user}"
+						th:value="${user.id}" th:text="${user.name}">User</option>
+					</select>
+					<small class="text-danger"
+							th:if="${#fields.hasErrors('user')}"
+							th:errors="*{user}"></small>
+				</div>
+				
+				<div class="form-group col-md-6">
+					<label for="book">Book</label>
+					<select id="book" class="form-control" name="book">
+						<option selected disabled="disabled">Book...</option>
+						<option th:each="book : ${books}" th:field="*{book}" th:value="${book.id}"
+							th:text="${book.title} + ' - ' + ${book.ISBN}">
+							Book
+						</option>
+					</select>
+					<small class="text-danger"
+							th:if="${#fields.hasErrors('book')}"
+							th:errors="*{book}"></small>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary">Realize a loan</button>
+		</form>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>

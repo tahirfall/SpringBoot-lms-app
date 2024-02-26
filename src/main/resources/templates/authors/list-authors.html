@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	
+	<div class="container">
+		<h3 th:text="${title}" class="text-center mt-5 mb-5">title</h3>
+		
+		<div class="d-flex justify-content-end mb-2" sec:authorize="hasRole('ROLE_ADMIN')">
+			<a th:href="@{/authors/create-author}" class="btn btn-success">New author</a>
+		</div>
+
+		<p th:if="${authors.isEmpty()}" th:text="'No authors available'"></p>
+
+		<div class="row d-flex justify-content-center">
+			<div class="col-12 mx-auto">
+				<table th:if="${!authors.isEmpty()}"
+					class="table table-striped text-center table-bordered mb-4">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Name</th>
+							<th>Nationality</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">Edit</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="author : ${authors}">
+							<td th:text="${author.id}">Id</td>
+							<td th:text="${author.name}">Name</td>
+							<td th:text="${author.nationality}">Nationality</td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a
+								class="btn btn-warning"
+								th:href="@{/authors/edit-author/} + ${author.id}"> Edit </a></td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a
+								class="btn btn-danger"
+								th:href="@{/authors/delete-author/} + ${author.id}" th:text="'Delete'">
+								Eliminar </a></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<nav th:replace="paginator-nav :: paginator"></nav>
+
+			</div>
+		</div>
+		<!-- row -->
+
+	</div>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+	
+</body>
+</html>

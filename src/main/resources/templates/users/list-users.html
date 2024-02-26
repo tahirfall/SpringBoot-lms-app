@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+		<h3 th:text="${title}" class="text-center mt-5 mb-5">title</h3>
+		
+		<div class="d-flex justify-content-end mb-2" sec:authorize="hasRole('ROLE_ADMIN')">
+			<a class="btn btn-success" th:href="@{/users/create-user}">New user</a>
+		</div>
+
+		<p th:if="${users.isEmpty()}" th:text="'No users available'"></p>
+
+		<div class="row d-flex justify-content-center">
+			<div class="col-12 mx-auto">
+				<table th:if="${!users.isEmpty()}"
+					class="table table-striped text-center table-bordered">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Address</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">Edit</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">Delete</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">Detail of user</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="user : ${users}">
+							<td th:text="${user.id}">Id></td>
+							<td th:text="${user.name}">Name</td>
+							<td th:text="${user.email}">Email</td>
+							<td th:text="${user.address}">Address</td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')">
+								<a
+								class="btn btn-warning"
+								th:href="@{/users/edit-user/} + ${user.id}"> Edit </a></td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')">
+								<a class="btn btn-danger"
+								th:href="@{/users/delete-user/} + ${user.id}" th:text="'Delete'">
+								Eliminar </a></td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')">
+								<a  class="btn btn-outline-primary" 
+									th:href="@{/users/detail/} + ${user.id}"
+									th:text="'Detail of User'">Detail of user
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<nav th:replace="paginator-nav :: paginator"></nav>
+
+			</div>
+		</div>
+		<!-- row -->
+
+	</div>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
