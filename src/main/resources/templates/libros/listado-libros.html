@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+		<h3 th:text="${titulo}" class="text-center mt-5 mb-5">title</h3>
+		
+		<div class="d-flex justify-content-end mb-2" sec:authorize="hasRole('ROLE_ADMIN')">
+			<a class="btn btn-success" th:href="@{/libros/crear-libro}">Añadir Libro</a>
+		</div>
+
+		<p th:if="${libros.isEmpty()}" th:text="'No hay libros para mostrar'"></p>
+
+		<div class="row d-flex justify-content-center">
+			<div class="col-12 mx-auto">
+				<table th:if="${!libros.isEmpty()}"
+					class="table table-striped text-center table-bordered">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Titulo</th>
+							<th>Editorial</th>
+							<th>ISBN</th>
+							<th>Disponible</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="libro : ${libros}">
+							<td th:text="${libro.id}">Id</td>
+							<td th:text="${libro.titulo}">Titulo</td>
+							<td th:text="${libro.editorial}">Editorial</td>
+							<td th:text="${libro.ISBN}">ISBN</td>
+							<td th:text="${libro.disponible_fisico} ? 'Si' : 'No'"></td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a
+								class="btn btn-warning"
+								th:href="@{/libros/editar-libro/} + ${libro.id}"> Editar </a></td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a
+								class="btn btn-danger"
+								th:href="@{/libros/eliminar-libro/} + ${libro.id}" th:text="'Eliminar'">
+								Eliminar </a></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<nav th:replace="paginator-nav :: paginator"></nav>
+
+			</div>
+		</div>
+		<!-- row -->
+
+	</div>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
