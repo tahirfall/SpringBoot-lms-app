@@ -1,6 +1,7 @@
 package com.esmt.misi2.lms.controller;
 
-import com.esmt.misi2.lms.model.entity.User;
+import com.esmt.misi2.lms.model.entity.UserRole;
+import com.esmt.misi2.lms.model.entity.Users;
 import com.esmt.misi2.lms.model.service.ILoanService;
 import com.esmt.misi2.lms.model.service.IUserService;
 import com.esmt.misi2.lms.util.paginator.PageRender;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,15 +35,18 @@ public class UserController {
 	@Autowired
 	ILoanService loanService;
 
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
 	@GetMapping("/list-users")
 	public String listUsers(@RequestParam(name = "page", defaultValue = "0") int page, 
 			Model model) {
 		
 		Pageable pageable = PageRequest.of(page, 5);
 		
-		Page<User> users = userService.findAll(pageable);
+		Page<Users> users = userService.findAll(pageable);
 		
-		PageRender<User> pageRender = new PageRender<>("/users/list-users", users);
+		PageRender<Users> pageRender = new PageRender<>("/users/list-users", users);
 		
 		model.addAttribute("title", "list of users");
 		model.addAttribute("users", users);
@@ -53,7 +58,7 @@ public class UserController {
 	@GetMapping("/create-user")
 	public String createUser(Model model) {
 		
-		User user = new User();
+		Users user = new Users();
 		
 		model.addAttribute("title", "Add a new user");
 		model.addAttribute("user", user);
@@ -62,7 +67,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/create-user")
-	public String saveAuthor(@Valid User user, BindingResult result, Model model,
+	public String saveUser(@Valid Users user, BindingResult result, Model model,
 							 SessionStatus status, RedirectAttributes flash) {
 		
 		if(result.hasErrors()) {
@@ -70,7 +75,14 @@ public class UserController {
 			model.addAttribute("user", user);
 			return "users/new-user"; //html
 		}
-		
+		// Encrypt the password before saving it
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setEnabled(true);
+
+		// Set default role (ROLE_USER)
+		user.setRole(UserRole.ROLE_USER);
+		user.setEnabled(true);
+
 		userService.save(user);
 		status.setComplete();
 		flash.addFlashAttribute("success", "User created successfully");
@@ -82,7 +94,7 @@ public class UserController {
 	public String editUser(@PathVariable(value = "id") Long id, Model model,
 			RedirectAttributes flash) {
 		
-		User user = null;
+		Users user = null;
 		
 		if(id > 0 ) {
 			user = userService.findOne(id);
@@ -104,7 +116,7 @@ public class UserController {
 	@GetMapping("/detail/{id}")
 	public String detailUser(@PathVariable(value = "id") Long id, Model model) {
 		
-		User user = userService.fetchByIdWithLoans(id);
+		Users user = userService.fetchByIdWithLoans(id);
 		
 		if(user == null) {
 			return "redirect:/users/list-users";
@@ -129,3 +141,5 @@ public class UserController {
 	}
 	
 }
+
+

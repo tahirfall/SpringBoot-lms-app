@@ -1,22 +1,27 @@
 package com.esmt.misi2.lms.model.dao;
 
-import com.esmt.misi2.lms.model.entity.User;
+import com.esmt.misi2.lms.model.entity.Users;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface IUsersDao extends PagingAndSortingRepository<User, Long>{
+public interface IUsersDao extends PagingAndSortingRepository<Users, Long>{
 
-	@Query("SELECT u FROM User u LEFT JOIN u.loans p WHERE u.id=?1")
-	public User fetchByIdWithLoan(Long id);
+	@Query("SELECT u FROM Users u LEFT JOIN u.loans p WHERE u.id=?1")
+	public Users fetchByIdWithLoan(Long id);
 
-	void save(User user);
+	public Users findByUsername(String username);
 
-	Optional<User> findById(Long id);
+	void save(Users user);
+
+	Optional<Users> findById(Long id);
 
 	void deleteById(Long id);
 
-	List<User> findAll();
+	List<Users> findAll();
 }
+
+
+

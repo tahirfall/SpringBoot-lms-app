@@ -22,7 +22,7 @@ public class SpringSecurityConfig {
 	@Autowired
 	private JpaUserDetailsService userDetailsServiceJpa;
 	
-	@Bean //autorización
+	@Bean //autorisation
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().requestMatchers("/books/list-books", "/css/**", "/js/**", "/images/**")
 			.permitAll()
@@ -32,6 +32,8 @@ public class SpringSecurityConfig {
 		.requestMatchers("/authors/**").hasAnyRole("ADMIN")
 		.requestMatchers("/loans/**").hasAnyRole("ADMIN")
 		.requestMatchers("/users/**").hasAnyRole("ADMIN")
+		.requestMatchers("/register").permitAll()
+		.requestMatchers("/register/success").permitAll()
 		.anyRequest().authenticated()
 		.and()
 			.formLogin()
@@ -65,4 +67,6 @@ public class SpringSecurityConfig {
 	}*/
 	
 }
+
+
 

@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<header th:fragment="header">
+	<header th:fragment="header0">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<a class="navbar-brand" th:href="@{/books/list-books}">Library
 				Management System</a>
@@ -25,13 +25,13 @@
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" th:href="@{/users/list-users}">Users</a></li>
 					<li class="nav-item"><a class="nav-link active"
-						th:href="@{/books/list-books}">Books</a></li>
+						th:href="@{/books/list-books}">Catalogue</a></li>
 					<!--li class="nav-item"><a class="nav-link active"
 						th:href="@{/loans/create-loan}">Create Loan</a></li-->
 					<li class="nav-item"><a class="nav-link active"
 						th:href="@{/authors/list-authors}">Authors</a></li>
 					<li class="nav-item"><a class="nav-link active"
-						th:href="@{/loans/list-loans}">Loans</a></li>
+						th:href="@{/loans/list-loans}">Issues</a></li>
 				</ul>
 				<ul  class="navbar-nav navbar-right">
 					<li sec:authorize="!isAuthenticated()">
@@ -60,7 +60,7 @@
 			</div>
 		</nav>
 		
-		<!-- mensajes flash -->
+
 		<div class="alert alert-success" th:if="${success != null}"
 			th:text="${success}"></div>
 		<div class="alert alert-danger" th:if="${error != null}"
@@ -71,6 +71,12 @@
 			th:text="${info}"></div>
 		
 	</header>
+	<header th:fragment="header1">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<h3 class="navbar-brand">Library Management System</h3>
+		</nav>
+	</header>
+
 
 	<footer th:fragment="footer" class="container-fluid bg-dark py-3">
 

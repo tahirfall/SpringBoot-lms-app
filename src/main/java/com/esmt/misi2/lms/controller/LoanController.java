@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.esmt.misi2.lms.model.entity.Book;
 import com.esmt.misi2.lms.model.entity.Loan;
-import com.esmt.misi2.lms.model.entity.User;
+import com.esmt.misi2.lms.model.entity.Users;
 import com.esmt.misi2.lms.model.service.IBookService;
 import com.esmt.misi2.lms.model.service.ILoanService;
 import com.esmt.misi2.lms.model.service.IUserService;
@@ -69,7 +69,7 @@ public class LoanController {
 	public String createLoan(Model model) {
 		
 		Loan loan = new Loan();
-		List<User> users = userService.findAll();
+		List<Users> users = userService.findAll();
 		List<Book> books = bookService.findAll();
 		
 		model.addAttribute("title", "create new loan");
@@ -86,11 +86,11 @@ public class LoanController {
 								  @Valid Loan loan, BindingResult result, Model model,
 								  SessionStatus status, RedirectAttributes flash) {
 		
-		List<User> users = userService.findAll();
+		List<Users> users = userService.findAll();
 		List<Book> books = bookService.findAll();
 		
 		Book book = bookService.findOne(bookId);
-		User user = userService.findOne(userId);
+		Users user = userService.findOne(userId);
 		
 		if(result.hasErrors()) {
 			model.addAttribute("title", "create a new loan");
@@ -117,7 +117,7 @@ public class LoanController {
 	public String editLoan(@PathVariable Long id, Model model, RedirectAttributes flash) {
 
 		Loan loan = null;
-		List<User> users = userService.findAll();
+		List<Users> users = userService.findAll();
 		List<Book> books = bookService.findAll();
 
 		if (id > 0) {

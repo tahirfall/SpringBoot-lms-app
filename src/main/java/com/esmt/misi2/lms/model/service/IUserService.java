@@ -2,22 +2,25 @@ package com.esmt.misi2.lms.model.service;
 
 import java.util.List;
 
-import com.esmt.misi2.lms.model.entity.User;
+import com.esmt.misi2.lms.model.entity.Users;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IUserService {
 
-	public List<User> findAll();
+	public List<Users> findAll();
 	
-	public Page<User> findAll(Pageable pageable);
+	public Page<Users> findAll(Pageable pageable);
 
-	public void save(User user);
+	public void save(Users user);
 
-	public User findOne(Long id);
+	public Users findOne(Long id);
 	
-	public User fetchByIdWithLoans(Long id);
+	public Users fetchByIdWithLoans(Long id);
 
 	public void delete(Long id);
-	
+
+	public Users findByUsername(String username);
 }
+
+

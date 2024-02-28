@@ -2,7 +2,7 @@ package com.esmt.misi2.lms.model.service;
 
 import java.util.List;
 
-import com.esmt.misi2.lms.model.entity.User;
+import com.esmt.misi2.lms.model.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,22 +17,22 @@ public class userServiceImpl implements IUserService {
 	private IUsersDao userDao;
 	
 	@Override
-	public List<User> findAll() {
-		return (List<User>) userDao.findAll();
+	public List<Users> findAll() {
+		return (List<Users>) userDao.findAll();
 	}
 
 	@Override
-	public Page<User> findAll(Pageable pageable) {
+	public Page<Users> findAll(Pageable pageable) {
 		return userDao.findAll(pageable);
 	}
 
 	@Override
-	public void save(User user) {
+	public void save(Users user) {
 		userDao.save(user);
 	}
 
 	@Override
-	public User findOne(Long id) {
+	public Users findOne(Long id) {
 		return userDao.findById(id).orElse(null);
 	}
 
@@ -42,8 +42,15 @@ public class userServiceImpl implements IUserService {
 	}
 
 	@Override
-	public User fetchByIdWithLoans(Long id) {
+	public Users findByUsername(String username) {
+		return userDao.findByUsername(username);
+	}
+
+	@Override
+	public Users fetchByIdWithLoans(Long id) {
 		return userDao.fetchByIdWithLoan(id);
 	}
 
 }
+
+

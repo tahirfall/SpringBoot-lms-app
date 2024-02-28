@@ -3,20 +3,13 @@ package com.esmt.misi2.lms.model.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class Users implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,6 +27,15 @@ public class User implements Serializable {
 	@NotEmpty
 	private String address;
 
+	@NotEmpty
+	private String username;
+
+	@NotEmpty
+	private String password;
+
+	private Boolean enabled;
+
+
 	/*
 	 * @OneToMany(mappedBy = "loan", fetch = FetchType.LAZY, cascade =
 	 * CascadeType.ALL)
@@ -41,6 +43,11 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "user_id")
 	private List<Loan> loans;
+
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "role")
+	private UserRole role;
 
 	public Long getId() {
 		return id;
@@ -74,6 +81,31 @@ public class User implements Serializable {
 		this.address = address;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+
 	public List<Loan> getLoans() {
 		return loans;
 	}
@@ -82,10 +114,20 @@ public class User implements Serializable {
 		this.loans = loans;
 	}
 
+	public UserRole getRole() {
+		return role;
+	}
+
+	public void setRole(UserRole role) {
+		this.role = role;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", address=" + address
 				+ ", loans=" + loans + "]";
 	}
-	
+
 }
+
+

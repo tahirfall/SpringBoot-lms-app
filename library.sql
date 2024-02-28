@@ -20,38 +20,24 @@ CREATE DATABASE IF NOT EXISTS `lms_db` /*!40100 DEFAULT CHARACTER SET utf8mb3 */
 USE `lms_db`;
 
 
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `address` varchar(45) DEFAULT NULL,
   `username` varchar(45) NOT NULL,
   `password` varchar(60) DEFAULT NULL,
+  `role` varchar(45) NOT NULL,
   `enabled` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
 
 
-REPLACE INTO `user` (`id`, `username`, `password`, `enabled`) VALUES
-	(1, 'tahir', '$2a$10$Ok5BIHXFJpJFoFUPp.SFYun9O0fS1sh.5yuhuOn/t5wW6yvaFh94y', 1),
-	(2, 'admin', '$2a$10$52xQraLQm0wG0rMnAz.IPuNm/tFRLsVWtM.675eaUQY9aGym0DyMa', 1);
+REPLACE INTO `users` (`id`, `name`, `email`, `address`, `username`, `password`, `role`, `enabled`) VALUES
+	(1, 'Tahir FALL', 'tahir@gmail.com', 'Pikine', 'tahir', '$2a$10$Ok5BIHXFJpJFoFUPp.SFYun9O0fS1sh.5yuhuOn/t5wW6yvaFh94y', 'ROLE_USER', 1),
+	(2, 'Admin', 'admin@gmail.com', 'Dakar', 'admin', '$2a$10$52xQraLQm0wG0rMnAz.IPuNm/tFRLsVWtM.675eaUQY9aGym0DyMa', 'ROLE_ADMIN', 1);
 
-
-
-
-
-CREATE TABLE IF NOT EXISTS `authorities` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
-  `authority` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_id_authorities_unique` (`user_id`,`authority`),
-  CONSTRAINT `fk_authorities_users` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
-REPLACE INTO `authorities` (`id`, `user_id`, `authority`) VALUES
-	(1, 1, 'ROLE_USER'),
-	(3, 2, 'ROLE_ADMIN'),
-	(2, 2, 'ROLE_USER');
 
 
 CREATE TABLE IF NOT EXISTS `authors` (
@@ -104,28 +90,6 @@ REPLACE INTO `books` (`id`, `title`, `publisher`, `ISBN`, `disponible`, `author_
 
 
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `address` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
-
-
-REPLACE INTO `users` (`id`, `name`, `email`, `address`) VALUES
-	(1, 'Andrés Pardo', 'andrespardo@gmail.com', 'St. Illionis 23'),
-	(2, 'Juana Marquez', 'juanamarquez@gmail.com', 'St. LorkForward #1'),
-	(7, 'Maura Garcia', 'mau@mail.com', '1234 Strret'),
-	(8, 'Delfina Torres', 'pepi@mail.com', 'Calle 32'),
-	(9, 'Nubia Jara', 'nubi@mail.com', 'Calle 23'),
-	(11, 'Jhon Doe', 'jdoe@gmail.com', 'ster # 23'),
-	(12, 'Carmelo Valencia', 'pipe572010@hotmail.com', 'que main sr 5');
-
-
-
-
-
 CREATE TABLE IF NOT EXISTS `loans` (
   `id` int NOT NULL AUTO_INCREMENT,
   `loan_date` date DEFAULT NULL,
@@ -141,11 +105,6 @@ CREATE TABLE IF NOT EXISTS `loans` (
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb3;
 
 
-REPLACE INTO `loans` (`id`, `loan_date`, `return_date`, `returned`, `user_id`, `book_id`) VALUES
-	(11, '2022-12-06', '2022-12-21', 0, 2, 3),
-	(12, '2022-12-06', '2022-12-16', 0, 2, 3),
-	(33, '2022-12-13', '2022-12-24', 1, 9, 36),
-	(34, '2022-12-13', '2022-12-21', 1, 11, 2);
 
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
@@ -153,3 +112,8 @@ REPLACE INTO `loans` (`id`, `loan_date`, `return_date`, `returned`, `user_id`, `
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+
+Cannot add or update a child row: a foreign key constraint fails (`lms_db`.`loans`, CONSTRAINT `fk_loan-user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+
+
+

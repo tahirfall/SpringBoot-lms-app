@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout/layout :: head"></head>
 <body>
-	<header th:replace="layout/layout :: header"></header>
+	<header th:replace="layout/layout :: header0"></header>
 
 	<div class="container-fluid">
 		<h3 th:text="${title}" class="text-center mt-5 mb-5">title</h3>
@@ -12,7 +12,7 @@
 		
 			<div class="d-flex justify-content-end mb-2">
 				<a class="btn btn-warning"
-					th:href="@{'/users/detail/' + ${loan.user.id}}">&laquo; Return
+					th:href="@{'/loans/list-loans'}">&laquo; Return
 				</a>
 			</div>
 		
