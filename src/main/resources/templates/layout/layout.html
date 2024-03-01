@@ -29,10 +29,10 @@
 						aria-current="page" th:href="@{/users/list-users}">Users</a></li>
 					<!--li class="nav-item"><a class="nav-link active"
 						th:href="@{/loans/create-loan}">Create Loan</a></li-->
+					<!--li class="nav-item"><a class="nav-link active"
+						th:href="@{/authors/list-authors}">Authors</a></li-->
 					<li class="nav-item"><a class="nav-link active"
-						th:href="@{/authors/list-authors}">Authors</a></li>
-					<li class="nav-item"><a class="nav-link active"
-						th:href="@{/loans/list-loans}">Issues</a></li>
+						th:href="@{/loans/list-loans}">Loans</a></li>
 				</ul>
 				<ul  class="navbar-nav navbar-right">
 					<li sec:authorize="!isAuthenticated()">

@@ -9,8 +9,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
@@ -36,9 +34,8 @@ public class Book implements Serializable {
 
 	private boolean disponible;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "author_id")
-	private Author author;
+	@NotEmpty
+	private String author;
 
 	@OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "book_id")
@@ -77,8 +74,14 @@ public class Book implements Serializable {
 	}
 
 	public void setISBN(String iSBN) {
-		ISBN = iSBN;
+		this.ISBN = iSBN;
 	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {this.author = author;}
 
 	public boolean isDisponible() {
 		return disponible;
@@ -86,14 +89,6 @@ public class Book implements Serializable {
 
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
-	}
-
-	public Author getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(Author author) {
-		this.author = author;
 	}
 
 	public List<Loan> getLoans() {

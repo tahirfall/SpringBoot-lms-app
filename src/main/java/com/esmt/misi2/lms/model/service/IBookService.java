@@ -17,5 +17,7 @@ public interface IBookService {
 	public Book findOne(Long id);
 
 	public void delete(Long id);
+
+	List<Book> search(String keyword);
 	
 }

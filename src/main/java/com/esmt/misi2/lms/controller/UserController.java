@@ -85,11 +85,12 @@ public class UserController {
 
 		userService.save(user);
 		status.setComplete();
-		flash.addFlashAttribute("success", "User created successfully");
+		flash.addFlashAttribute("success", "Saved successfully");
 		
 		return "redirect:/users/list-users";
 	}
-	
+
+
 	@GetMapping("/edit-user/{id}")
 	public String editUser(@PathVariable(value = "id") Long id, Model model,
 			RedirectAttributes flash) {
@@ -112,7 +113,8 @@ public class UserController {
 		
 		return "users/new-user";
 	}
-	
+
+
 	@GetMapping("/detail/{id}")
 	public String detailUser(@PathVariable(value = "id") Long id, Model model) {
 		

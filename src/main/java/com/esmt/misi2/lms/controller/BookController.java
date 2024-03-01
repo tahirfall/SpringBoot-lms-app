@@ -1,8 +1,5 @@
 package com.esmt.misi2.lms.controller;
 
-import java.util.List;
-
-import com.esmt.misi2.lms.model.entity.Author;
 import com.esmt.misi2.lms.model.entity.Book;
 import jakarta.validation.Valid;
 
@@ -22,9 +19,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.esmt.misi2.lms.model.service.IAuthorService;
 import com.esmt.misi2.lms.model.service.IBookService;
 import com.esmt.misi2.lms.util.paginator.PageRender;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/books")
@@ -34,8 +32,6 @@ public class BookController {
 	@Autowired
 	private IBookService bookService;
 
-	@Autowired
-	private IAuthorService authorService;
 	
 	@GetMapping("/list-books")
 	public String listBooks(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
@@ -56,49 +52,38 @@ public class BookController {
 	@GetMapping("/create-book")
 	public String createBook(Model model) {
 
-		List<Author> authors = authorService.findAll();
 
 		model.addAttribute("title", "Add a new book");
 		Book book = new Book();
 
 		model.addAttribute("book", book);
-		model.addAttribute("authors", authors);
 
 		return "books/new-book"; // html
 	}
 
 	@PostMapping("/create-book")
-	public String createBook(@RequestParam( name = "author", required = false) Long authorId,
-							 @Valid Book book, BindingResult result, Model model,
+	public String createBook(@Valid Book book, BindingResult result, Model model,
 							 SessionStatus status, RedirectAttributes flash) {
-
-		List<Author> authors = authorService.findAll();
-		
-		Author author = authorService.findOne(authorId);
 
 		if (result.hasErrors()) {
 			model.addAttribute("title", "Add a new book");
 			model.addAttribute("book", book);
-			model.addAttribute("authors", authors);
 			return "books/new-book";
 		}
-		
-		book.setAuthor(author);
 
-        book.setDisponible(book.isDisponible());
-		
+		book.setDisponible(book.isDisponible());
 		bookService.save(book);
 		status.setComplete();
-		flash.addFlashAttribute("success", "book added successfully");
+		flash.addFlashAttribute("success", "Book added successfully");
 
 		return "redirect:/books/list-books";
 	}
+
 
 	@GetMapping("/edit-book/{id}")
 	public String editBook(@PathVariable Long id, Model model, RedirectAttributes flash) {
 
 		Book book = null;
-		List<Author> authors = authorService.findAll();
 
 		if (id > 0) {
 			book = bookService.findOne(id);
@@ -113,7 +98,6 @@ public class BookController {
 		
 		model.addAttribute("title", "edit book");
 		model.addAttribute("book", book);
-		model.addAttribute("authors", authors);
 
 		return "books/new-book";
 	}
@@ -128,6 +112,15 @@ public class BookController {
 		
 		return "redirect:/books/list-books";
 	}
+
+	@GetMapping("/search-books")
+	public String searchBooks(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
+		List<Book> searchResults = bookService.search(keyword);
+		model.addAttribute("title", "Search Results");
+		model.addAttribute("books", searchResults);
+		return "books/search-results";
+	}
+
 
 }
 

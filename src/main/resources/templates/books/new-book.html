@@ -19,7 +19,7 @@
 					<div class="form-group col-md-6">
 						<label for="title">title</label> <input type="text"
 							class="form-control" id="title" placeholder="title... "
-							th:field="*{title}" th:value="${title}">
+							th:field="*{title}" th:value="${title}" required>
 							<small class="text-danger"
 							th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></small>
 					</div>
@@ -27,7 +27,7 @@
 						<label for="publisher">Publisher</label> <input type="text"
 							class="form-control" id="publisher"
 							placeholder="publisher..." th:field="*{publisher}"
-							th:value="${publisher}">
+							th:value="${publisher}" required>
 							<small class="text-danger"
 							th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}"></small>
 					</div>
@@ -35,25 +35,22 @@
 				<div class="form-group">
 					<label for="isbn">ISBN</label> <input type="text"
 						class="form-control" id="isbn" placeholder="ISBN..."
-						th:field="*{ISBN}" th:value="${ISBN}">
+						th:field="*{ISBN}" th:value="${ISBN}" required>
 						<small class="text-danger"
 							th:if="${#fields.hasErrors('ISBN')}" th:errors="*{ISBN}"></small>
 				</div>
 				<div class="form-group">
-					<label for="author">Author</label>
-						<select id="author" class="form-control" name="author">
-						<option selected disabled="disabled">Author...</option>
-						<option th:each="author : ${authors}" th:value="${author.id}"
-							th:text="${author.name}" th:field="*{author}">Author...</option>
-					</select>
+					<label for="author">Author</label> <input type="text"
+														  class="form-control" id="author" placeholder="Author Name..."
+														  th:field="*{author}" th:value="${author}" required>
 					<small class="text-danger"
-							th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></small>
+						   th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></small>
 				</div>
 
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="habilitar">¿Disponible?</label>
-							<input type="checkbox" id="habilitar" th:field="*{disponible}">
+						<label for="available">¿available?</label>
+							<input type="checkbox" id="available" th:field="*{disponible}">
 					</div>
 				</div>
 				<button type="submit" class="btn btn-primary">Save Book</button>

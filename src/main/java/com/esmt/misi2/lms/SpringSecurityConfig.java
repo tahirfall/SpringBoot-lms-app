@@ -29,7 +29,7 @@ public class SpringSecurityConfig {
 		.requestMatchers("/books/create-book").hasAnyRole("ADMIN")
 		.requestMatchers("/books/edit-book/**").hasAnyRole("ADMIN")
 		.requestMatchers("/books/delete-book/**").hasAnyRole("ADMIN")
-		.requestMatchers("/authors/**").hasAnyRole("ADMIN")
+		.requestMatchers("/books/search-results/**").permitAll()
 		.requestMatchers("/loans/**").hasAnyRole("ADMIN")
 		.requestMatchers("/users/**").hasAnyRole("ADMIN")
 		.requestMatchers("/register").permitAll()

@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `enabled` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 
 REPLACE INTO `users` (`id`, `name`, `email`, `address`, `username`, `password`, `role`, `enabled`) VALUES
@@ -40,24 +40,7 @@ REPLACE INTO `users` (`id`, `name`, `email`, `address`, `username`, `password`, 
 
 
 
-CREATE TABLE IF NOT EXISTS `authors` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  `nationality` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
 
-
-REPLACE INTO `authors` (`id`, `name`, `nationality`) VALUES
-	(1, 'Plasencia, Juan Luis', 'Perú'),
-	(2, 'Llorens Antonia', 'España'),
-	(3, 'Sanabria, Carmelo', 'España'),
-	(4, 'Richter, Helmut', 'Escocia'),
-	(7, 'Llorens, Antonia', 'España'),
-	(8, 'Dulac, George', 'EEUU'),
-	(9, 'Davolio, Nancy', 'Croacia'),
-	(10, 'Bazilian, Eric', 'Brasil'),
-	(11, 'Bertomeu, Andrés', 'España');
 
 
 
@@ -66,23 +49,15 @@ CREATE TABLE IF NOT EXISTS `books` (
   `title` varchar(45) DEFAULT NULL,
   `publisher` varchar(45) DEFAULT NULL,
   `ISBN` varchar(45) DEFAULT NULL,
+  `author` varchar(45) DEFAULT NULL,
   `disponible` tinyint(1) DEFAULT NULL COMMENT '0 = No, 1 = Si',
-  `author_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_book-author_idx` (`author_id`),
-  CONSTRAINT `fk_book-author` FOREIGN KEY (`author_id`) REFERENCES `authors` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb3;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 
-REPLACE INTO `books` (`id`, `title`, `publisher`, `ISBN`, `disponible`, `author_id`) VALUES
-	(1, 'El tránsito terreno', 'Larrosa Mas, S.L', '84-121-2310-2', 1, 4),
-	(2, 'Poemas intrínsecos', 'Deloria Editores', '84-305-0473-7', 1, 2),
-	(3, 'La mente y el sentir', 'Larrosa Mas, S.L', '84-226-2128-2', 1, 1),
-	(4, 'Avances en Arquitectura', 'TechniBooks', '84-473-0120-6', 0, 4),
-	(5, 'Canto de esperanza', 'McCoy Hill', '84-444-0027-3', 0, 9),
-	(36, 'Edicion', 'edicion', 'edicion', 0, 3),
-	(37, 'Procesadores cuánticos', 'Grisham Publishing', '84-212-2121-2', 1, 10),
-	(38, 'Libro edit', 'TechniBooks', '3393-339393', 0, 7);
+REPLACE INTO `books` (`id`, `title`, `publisher`, `ISBN`, `author`, `disponible`) VALUES
+	(1, 'L Etranger', 'Larrosa Mas, S.L', '84-121-2310-2', 'Albert Camus', 1),
+	(2, 'Yalla Pitie', 'Tekkilma', '14-780-0610-9', 'Nabyleu', 1);
 
 
 
@@ -102,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `loans` (
   KEY `fk_loan-user_idx` (`user_id`),
   CONSTRAINT `fk_loan-book` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_loan-user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 
 
@@ -113,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `loans` (
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
 
-Cannot add or update a child row: a foreign key constraint fails (`lms_db`.`loans`, CONSTRAINT `fk_loan-user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+
 
 
 

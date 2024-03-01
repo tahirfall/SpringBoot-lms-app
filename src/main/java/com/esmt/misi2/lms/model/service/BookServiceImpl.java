@@ -41,4 +41,7 @@ public class BookServiceImpl implements IBookService {
 		bookDao.deleteById(id);
 	}
 
+	@Override
+	public List<Book> search(String keyword) {return bookDao.search(keyword);}
+
 }

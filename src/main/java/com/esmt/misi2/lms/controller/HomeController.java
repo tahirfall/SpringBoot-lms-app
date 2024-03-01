@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 	@RequestMapping("/home")
 	public String routePrincipal(Model model) {
+		model.addAttribute("title", "Home");
 		model.addAttribute("welcomeMessage", "Welcome to the Library Management System of ESMT");
 		model.addAttribute("libraryImage", "../src/main/resources/static/images/home.png");
 		return "home";
