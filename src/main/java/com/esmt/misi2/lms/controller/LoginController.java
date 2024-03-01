@@ -11,14 +11,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class LoginController {
 
-	@GetMapping("/login")
+	@GetMapping({"/login", "/"})
 	public String login(@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout, Model model, Principal principal,
 			RedirectAttributes flash) {
 
 		if (principal != null) {
-			flash.addFlashAttribute("info", "You have already logged in before.");
-			return "redirect:/";
+			flash.addFlashAttribute("info", "Connected.");
+			return "redirect:/home";
 		}
 
 		if (error != null) {

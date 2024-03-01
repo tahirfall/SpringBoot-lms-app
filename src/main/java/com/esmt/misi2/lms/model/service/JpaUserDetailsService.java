@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.esmt.misi2.lms.model.entity.Users;
+import com.esmt.misi2.lms.model.entity.UserModel;
 
 @Service("jpaUserDetailsService")
 public class JpaUserDetailsService implements UserDetailsService {
@@ -30,7 +30,7 @@ public class JpaUserDetailsService implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		Users user = userDao.findByUsername(username);
+		UserModel user = userDao.findByUsername(username);
 
 		if (user == null) {
 			logger.error("Error! user '" + username + "' does not exist!!!");

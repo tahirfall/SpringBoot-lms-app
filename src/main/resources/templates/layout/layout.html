@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head">
 <meta charset="UTF-8">
-<title th:text="'SpringBoot - MVC Library' + ${titulo}"></title>
+<title th:text="'ESMT LMS - ' + ${title}"></title>
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
 <link rel="stylesheet" th:href="@{/css/footer.css}" />
@@ -11,8 +11,7 @@
 
 	<header th:fragment="header0">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" th:href="@{/books/list-books}">Library
-				Management System</a>
+			<h3 class="navbar-brand">Library Management System</h3>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -23,9 +22,11 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" th:href="@{/users/list-users}">Users</a></li>
+						aria-current="page" th:href="@{/home}">Home</a></li>
 					<li class="nav-item"><a class="nav-link active"
 						th:href="@{/books/list-books}">Catalogue</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" th:href="@{/users/list-users}">Users</a></li>
 					<!--li class="nav-item"><a class="nav-link active"
 						th:href="@{/loans/create-loan}">Create Loan</a></li-->
 					<li class="nav-item"><a class="nav-link active"
@@ -37,7 +38,7 @@
 					<li sec:authorize="!isAuthenticated()">
 						<a th:href="@{/login}" class="btn btn-primary">Sign in</a>
 					</li>
-					
+
 					<li sec:authorize="isAuthenticated()" class="dropdown show"><a
 						class="btn btn-outline-primary dropdown-toggle" href="#"
 						role="button" id="dropdownMenuLink" data-toggle="dropdown"
@@ -54,7 +55,7 @@
 							</form>
 						</div>
 					</li>
-					
+
 				</ul>
 
 			</div>

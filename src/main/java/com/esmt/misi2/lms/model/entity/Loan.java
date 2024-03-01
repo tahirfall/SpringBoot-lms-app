@@ -36,7 +36,7 @@ public class Loan implements Serializable{
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private Users user;
+	private UserModel user;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "book_id")
@@ -79,11 +79,11 @@ public class Loan implements Serializable{
 		this.returned = returned;
 	}
 
-	public Users getUser() {
+	public UserModel getUser() {
 		return user;
 	}
 
-	public void setUser(Users user) {
+	public void setUser(UserModel user) {
 		this.user = user;
 	}
 

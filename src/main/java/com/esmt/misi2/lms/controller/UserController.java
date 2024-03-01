@@ -1,7 +1,6 @@
 package com.esmt.misi2.lms.controller;
 
-import com.esmt.misi2.lms.model.entity.UserRole;
-import com.esmt.misi2.lms.model.entity.Users;
+import com.esmt.misi2.lms.model.entity.UserModel;
 import com.esmt.misi2.lms.model.service.ILoanService;
 import com.esmt.misi2.lms.model.service.IUserService;
 import com.esmt.misi2.lms.util.paginator.PageRender;
@@ -44,9 +43,9 @@ public class UserController {
 		
 		Pageable pageable = PageRequest.of(page, 5);
 		
-		Page<Users> users = userService.findAll(pageable);
+		Page<UserModel> users = userService.findAll(pageable);
 		
-		PageRender<Users> pageRender = new PageRender<>("/users/list-users", users);
+		PageRender<UserModel> pageRender = new PageRender<>("/users/list-users", users);
 		
 		model.addAttribute("title", "list of users");
 		model.addAttribute("users", users);
@@ -58,7 +57,7 @@ public class UserController {
 	@GetMapping("/create-user")
 	public String createUser(Model model) {
 		
-		Users user = new Users();
+		UserModel user = new UserModel();
 		
 		model.addAttribute("title", "Add a new user");
 		model.addAttribute("user", user);
@@ -67,8 +66,8 @@ public class UserController {
 	}
 	
 	@PostMapping("/create-user")
-	public String saveUser(@Valid Users user, BindingResult result, Model model,
-							 SessionStatus status, RedirectAttributes flash) {
+	public String saveUser(@Valid UserModel user, BindingResult result, Model model,
+						   SessionStatus status, RedirectAttributes flash) {
 		
 		if(result.hasErrors()) {
 			model.addAttribute("title", "Add a new user");
@@ -80,7 +79,8 @@ public class UserController {
 		user.setEnabled(true);
 
 		// Set default role (ROLE_USER)
-		user.setRole(UserRole.ROLE_USER);
+		//user.setRole(UserRole.ROLE_USER);
+		user.setRole(user.getRole());
 		user.setEnabled(true);
 
 		userService.save(user);
@@ -94,7 +94,7 @@ public class UserController {
 	public String editUser(@PathVariable(value = "id") Long id, Model model,
 			RedirectAttributes flash) {
 		
-		Users user = null;
+		UserModel user = null;
 		
 		if(id > 0 ) {
 			user = userService.findOne(id);
@@ -116,7 +116,7 @@ public class UserController {
 	@GetMapping("/detail/{id}")
 	public String detailUser(@PathVariable(value = "id") Long id, Model model) {
 		
-		Users user = userService.fetchByIdWithLoans(id);
+		UserModel user = userService.fetchByIdWithLoans(id);
 		
 		if(user == null) {
 			return "redirect:/users/list-users";

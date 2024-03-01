@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header0"></header>
+
+<div class="container">
+    <h3 th:text="${title}" class="text-center mt-5 mb-5">home</h3>
+
+    <h2 th:text="${welcomeMessage}"></h2>
+    <p>Follow the <a class="active"
+        th:href="@{/books/list-books}">link</a> to visit our catalogue of books.</p>
+    <img th:src="@{/images/home.png}" alt="ESMT library"/>
+
+</div>
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
+

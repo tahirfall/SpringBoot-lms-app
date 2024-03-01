@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
-public class Users implements Serializable {
+public class UserModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
