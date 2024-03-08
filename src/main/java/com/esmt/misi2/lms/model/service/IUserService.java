@@ -12,7 +12,7 @@ public interface IUserService {
 	
 	public Page<UserModel> findAll(Pageable pageable);
 
-	public void save(UserModel user);
+	public UserModel save(UserModel user);
 
 	public UserModel findOne(Long id);
 	

@@ -12,7 +12,7 @@ public interface IBookService {
 	
 	public Page<Book> findAll(Pageable pageable);
 
-	public void save(Book book);
+	public Book save(Book book);
 
 	public Book findOne(Long id);
 

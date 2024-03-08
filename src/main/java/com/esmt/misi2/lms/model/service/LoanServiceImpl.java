@@ -29,9 +29,10 @@ public class LoanServiceImpl implements ILoanService {
 	}
 
 	@Override
-	public void save(Loan loan) {
+	public Loan save(Loan loan) {
 		loanDao.save(loan);
-	}
+        return loan;
+    }
 
 	@Override
 	public Loan findOne(Long id) {

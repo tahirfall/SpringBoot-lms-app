@@ -12,7 +12,7 @@ public interface ILoanService {
 	
 	public Page<Loan> findAllPaginable(Pageable pageable);
 
-	public void save(Loan loan);
+	public Loan save(Loan loan);
 
 	public Loan findOne(Long id);
 	

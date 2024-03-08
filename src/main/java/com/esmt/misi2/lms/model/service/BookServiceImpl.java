@@ -27,9 +27,10 @@ public class BookServiceImpl implements IBookService {
 	}
 
 	@Override
-	public void save(Book book) {
+	public Book save(Book book) {
 		bookDao.save(book);
-	}
+        return book;
+    }
 
 	@Override
 	public Book findOne(Long id) {
