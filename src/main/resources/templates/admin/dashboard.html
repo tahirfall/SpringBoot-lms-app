@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+</head>
+<body>
+<header th:replace="layout/layout :: header0"></header>
+
+<div class="container">
+    <h2 class="text-secondary mt-4">Dashboard</h2>
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-4">
+            <div class="card bg-light">
+                <div class="card-body text-info text-center">
+                    <h5 class="card-title">Number of Books</h5>
+                    <p class="card-text" th:text="${numberOfBooks}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-light">
+                <div class="card-body text-info text-center">
+                    <h5 class="card-title">Number of Available Books</h5>
+                    <p class="card-text" th:text="${numberOfAvailableBook}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-4">
+            <div class="card bg-light">
+                <div class="card-body text-info text-center">
+                    <h5 class="card-title">Number of Simple Users</h5>
+                    <p class="card-text" th:text="${numberOfUsers}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-light">
+                <div class="card-body text-info text-center">
+                    <h5 class="card-title">Number of Loans</h5>
+                    <p class="card-text" th:text="${numberOfLoans}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

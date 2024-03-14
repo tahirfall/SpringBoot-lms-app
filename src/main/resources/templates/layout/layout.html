@@ -22,17 +22,15 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" th:href="@{/home}">Home</a></li>
+						aria-current="page" th:href="@{/home}">HOME</a></li>
 					<li class="nav-item"><a class="nav-link active"
-						th:href="@{/books/list-books}">Catalogue</a></li>
+						th:href="@{/books/list-books}">CATALOGUE</a></li>
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" th:href="@{/users/list-users}">Users</a></li>
-					<!--li class="nav-item"><a class="nav-link active"
-						th:href="@{/loans/create-loan}">Create Loan</a></li-->
-					<!--li class="nav-item"><a class="nav-link active"
-						th:href="@{/authors/list-authors}">Authors</a></li-->
+						aria-current="page" th:href="@{/users/list-users}">USERS</a></li>
 					<li class="nav-item"><a class="nav-link active"
-						th:href="@{/loans/list-loans}">Loans</a></li>
+						th:href="@{/loans/list-loans}">LOANS</a></li>
+					<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+						<a class="btn btn-outline-info ml-5" th:href="@{/admin/dashboard}">DASHBOARD</a></li>
 				</ul>
 				<ul  class="navbar-nav navbar-right">
 					<li sec:authorize="!isAuthenticated()">

@@ -3,14 +3,7 @@ package com.esmt.misi2.lms.model.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
 @Entity
@@ -43,6 +36,30 @@ public class Book implements Serializable {
 
 	public int totalLoans() {
 		return loans.size();
+	}
+
+
+	@Lob
+	@Column(name = "image_content", columnDefinition = "LONGBLOB")
+	private byte[] imageContent;
+
+	@Column(name = "image_type")
+	private String imageType;
+
+	public byte[] getImageContent() {
+		return imageContent;
+	}
+
+	public void setImageContent(byte[] imageContent) {
+		this.imageContent = imageContent;
+	}
+
+	public String getImageType(){
+		return imageType;
+	}
+
+	public void setImageType(String imageType) {
+		this.imageType = imageType;
 	}
 
 	public Long getId() {

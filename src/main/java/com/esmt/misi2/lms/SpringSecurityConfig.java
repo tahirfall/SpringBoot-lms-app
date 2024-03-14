@@ -26,6 +26,7 @@ public class SpringSecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().requestMatchers("/books/list-books", "/css/**", "/js/**", "/images/**", "/", "index", "/home")
 			.permitAll()
+		.requestMatchers("/admin/dashboard").hasAnyRole("ADMIN")
 		.requestMatchers("/books/create-book").hasAnyRole("ADMIN")
 		.requestMatchers("/books/edit-book/**").hasAnyRole("ADMIN")
 		.requestMatchers("/books/delete-book/**").hasAnyRole("ADMIN")

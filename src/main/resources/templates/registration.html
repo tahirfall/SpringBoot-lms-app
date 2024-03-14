@@ -7,6 +7,11 @@
 <div class="container">
     <h3 th:text="${title}" class="text-center mt-5 mb-5">Register</h3>
 
+    <div class="d-flex justify-content-end mb-2">
+        <a class="btn btn-warning" th:href="@{/login}">&laquo;
+            Return</a>
+    </div>
+
     <div class="col-8 mx-auto my-4">
         <form th:action="@{/register}" th:object="${user}" method="POST">
             <div class="form-row">

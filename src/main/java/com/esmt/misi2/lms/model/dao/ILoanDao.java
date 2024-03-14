@@ -19,6 +19,8 @@ public interface ILoanDao extends PagingAndSortingRepository<Loan, Long>{
 	void deleteById(Long id);
 
 	List<Loan> findAll();
+
+	int count();
 }
 
 

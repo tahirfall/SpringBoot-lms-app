@@ -1,6 +1,8 @@
 package com.esmt.misi2.lms.model.service;
 
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 import com.esmt.misi2.lms.model.entity.Book;
 import org.springframework.data.domain.Page;
@@ -19,5 +21,8 @@ public interface IBookService {
 	public void delete(Long id);
 
 	List<Book> search(String keyword);
-	
+
+	byte[] getImageContentById(Long id) throws FileNotFoundException;
 }
+
+

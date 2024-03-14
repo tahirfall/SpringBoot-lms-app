@@ -13,9 +13,9 @@
 		</div>
 
 		<div class="col-8 mx-auto mb-3	">
-			<form th:action="@{/books/create-book}" th:object="${book}"
-				method="POST">
-				<div class="form-row">
+			<form th:action="@{/books/create-book}" th:object="${book}" method="POST"
+				  enctype="multipart/form-data">
+			<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="title">title</label> <input type="text"
 							class="form-control" id="title" placeholder="title... "
@@ -46,12 +46,15 @@
 					<small class="text-danger"
 						   th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></small>
 				</div>
-
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="available">¿available?</label>
 							<input type="checkbox" id="available" th:field="*{disponible}">
 					</div>
+				</div>
+				<div class="form-group">
+					<label for="image">Image:</label>
+					<input type="file" class="form-control-file" id="image" name="image" accept="image/*">
 				</div>
 				<button type="submit" class="btn btn-primary">Save Book</button>
 			</form>

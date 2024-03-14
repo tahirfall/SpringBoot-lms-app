@@ -20,4 +20,13 @@ public interface IBookDao extends PagingAndSortingRepository<Book, Long>{
 
     @Query("SELECT b FROM Book b WHERE LOWER(b.title) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(b.publisher) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<Book> search(@Param("keyword") String keyword);
+
+    int count();
+
+    @Query("SELECT COUNT(u) FROM Book u WHERE u.disponible = true")
+    int countAvailableBook();
+
 }
+
+
+

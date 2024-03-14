@@ -21,6 +21,12 @@ public interface IUsersDao extends PagingAndSortingRepository<UserModel, Long>{
 	void deleteById(Long id);
 
 	List<UserModel> findAll();
+
+	int count();
+
+	@Query("SELECT COUNT(u) FROM UserModel u WHERE u.role = 'ROLE_USER'")
+	int countByRoleUser();
+
 }
 
 
