@@ -10,33 +10,28 @@
 <body>
 
 <header th:fragment="header0">
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<h3 class="navbar-brand">Library Management System</h3>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item link-info" >
-					<a class="nav-link" aria-current="page" th:href="@{/home}">Home</a>
-				</li>
-				<li class="nav-item" >
-					<a class="nav-link" th:href="@{/books/list-books}">Catalogue</a>
-				</li>
-				<li class="nav-item" >
-					<a class="nav-link" th:href="@{/users/list-users}">Users</a>
-				</li>
-				<li class="nav-item" >
-					<a class="nav-link" th:href="@{/loans/list-loans}">Loans</a>
-				</li>
-				<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')" >
-					<a class="nav-link" th:href="@{/admin/dashboard}">DASHBOARD</a>
-				</li>
-			</ul>
+	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #F4F6F6;">
+		<div class="container-fluid">
+			<a class="navbar-brand">Library Management System</a>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item" >
+						<a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
+					</li>
+					<li class="nav-item" >
+						<a class="nav-link" th:href="@{/books/list-books}">Catalogue</a>
+					</li>
+					<li class="nav-item" >
+						<a class="nav-link" th:href="@{/users/list-users}">Users</a>
+					</li>
+					<li class="nav-item" >
+						<a class="nav-link" th:href="@{/loans/list-loans}">Loans</a>
+					</li>
+					<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')" >
+						<a class="nav-link" th:href="@{/admin/dashboard}">Dashboard</a>
+					</li>
+				</ul>
+			</div>
 			<ul class="navbar-nav navbar-right">
 				<li sec:authorize="!isAuthenticated()">
 					<a th:href="@{/login}" class="btn btn-primary">Sign in</a>
@@ -70,8 +65,8 @@
 	</nav>
 </header>
 
-<footer th:fragment="footer" class="container-fluid bg-dark py-3">
-	<p class="text-center text-white font-weight-bold">Copyright@esmt-misi2. All Rights Reserved.</p>
+<footer th:fragment="footer" class="container-fluid py-3" style="background-color: #F4F6F6;">
+	<p class="text-center text-dark font-weight-bold">Copyright@esmt-misi2. All Rights Reserved.</p>
 	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	<script th:src="@{/js/popper.min.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>

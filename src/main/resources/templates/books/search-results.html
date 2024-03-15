@@ -1,55 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="layout/layout :: head"></head>
+<head th:replace="layout/layout :: head">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
 <body>
 <header th:replace="layout/layout :: header0"></header>
 
-<div class="container">
-    <h3 th:text="${title}" class="text-center mt-5 mb-5">title</h3>
-
-    <p th:if="${books.isEmpty()}" th:text="'Books not available'"></p>
-
-    <div class="d-flex justify-content-end mb-2">
-        <a class="btn btn-warning" th:href="@{/books/list-books}">&laquo;
-            Return</a>
-    </div>
-
-    <div class="row d-flex justify-content-center">
-        <div class="col-12 mx-auto">
-            <table th:if="${!books.isEmpty()}"
-                   class="table table-striped text-center table-bordered">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>Publisher</th>
-                    <th>ISBN</th>
-                    <th>Disponible</th>
-                    <th sec:authorize="hasRole('ROLE_ADMIN')">Edit</th>
-                    <th sec:authorize="hasRole('ROLE_ADMIN')">Delete</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="book : ${books}">
-                    <td th:text="${book.id}">Id</td>
-                    <td th:text="${book.title}">Title</td>
-                    <td th:text="${book.publisher}">Publisher</td>
-                    <td th:text="${book.ISBN}">ISBN</td>
-                    <td th:text="${book.disponible ? 'Yes' : 'No'}">Available</td>
-                    <td sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="btn btn-warning" th:href="@{/books/edit-book/} + ${book.id}"> Edit </a>
-                    </td>
-                    <td sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="btn btn-danger" th:href="@{/books/delete-book/} + ${book.id}" th:text="'Delete'"> Delete </a>
-                    </td>
-                </tr>
-                </tbody>
-
-            </table>
-
+<div class="container mt-4">
+    <div class="row justify-content-end mb-3">
+        <div class="col-md-4 mb-2" sec:authorize="hasRole('ROLE_ADMIN')">
+            <a th:href="@{/books/create-book}" title="add book" class="btn btn-success">
+                Add New Book
+            </a>
+        </div>
+        <div class="col-md-4">
+            <form th:action="@{/books/search-books}" method="GET" class="form-inline">
+                <div class="form-group">
+                    <input type="text" name="keyword" class="form-control" placeholder="Search by title">
+                </div>
+                <button type="submit" class="btn btn-primary ml-2">Search</button>
+            </form>
         </div>
     </div>
-    <!-- row -->
+
+    <p th:if="${books.isEmpty()}" class="mb-3">Books not available</p>
+
+    <div class="row mt-5">
+        <div th:each="book, iterStat : ${books}" class="col-md-4">
+            <div class="card mb-4 col-8">
+                <img th:if="${book.imageContent}" th:src="@{/books/image/{id}(id=${book.id})}" alt="Book Image" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${book.title}">Book Title</h5>
+                </div>
+                <div class="card-footer text-center">
+                    <a th:href="@{/books/detail/{id}(id=${book.id})}" class="btn btn-outline-info btn-details">Show</a>
+                    <th:block th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                        <a th:href="@{/books/edit-book/{id}(id=${book.id})}" class="btn btn-outline-warning btn-edit">Edit</a>
+                        <a th:href="@{/books/delete-book/{id}(id=${book.id})}" class="btn btn-outline-danger btn-delete">Delete</a>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
