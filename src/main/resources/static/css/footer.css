@@ -15,3 +15,8 @@ footer {
    bottom: 0;
    width: 100%;
 }
+
+.navbar-nav .active > .nav-link {
+            color: #9633FF;
+            background-color: #007bff;
+        }

@@ -107,7 +107,7 @@ public class BookController {
 
 		bookService.save(book);
 		status.setComplete();
-		flash.addFlashAttribute("success", "Book added successfully");
+		flash.addFlashAttribute("success", "Book saved successfully");
 
 		return "redirect:/books/list-books";
 	}
@@ -130,7 +130,7 @@ public class BookController {
 			return "redirect:/books/list-books";
 		}
 		
-		model.addAttribute("title", "edit book");
+		model.addAttribute("title", "Edit book");
 		model.addAttribute("book", book);
 
 		return "books/new-book";

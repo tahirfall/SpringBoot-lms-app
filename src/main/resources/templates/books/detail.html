@@ -5,19 +5,57 @@
 <header th:replace="layout/layout :: header0"></header>
 
 <div class="container mt-5">
-    <h3 class="text-center" th:text="${book.title}">Book Title</h3>
-
-    <div class="row mt-4">
-        <div class="card mb-4 col-8">
-            <img th:if="${book.imageContent}" th:src="@{/books/image/{id}(id=${book.id})}" alt="Book Image" class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${book.title}">Book Title</h5>
-            </div>
-        </div>
+    <h3 th:text="${title}" class="text-center mt-5 mb-5">title</h3>
+    <div class="d-flex justify-content-end mb-2">
+        <a class="btn btn-warning" th:href="@{/books/list-books}">&laquo; Return</a>
     </div>
 
-    <div class="mt-4">
-        <a th:href="@{/list-books}" class="btn btn-primary">Back to List</a>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img th:if="${book.imageContent}" th:src="@{/books/image/{id}(id=${book.id})}" alt="Book Image" class="card-img-top">
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item"><span class="font-weight-bold">Title:</span>
+                            <p class="m-0" style="display: inline-block;"
+                               th:text="${book.title}">
+                            </p>
+                        </li>
+
+                        <li class="list-group-item"><span class="font-weight-bold">Author:</span>
+                            <p class="m-0" style="display: inline-block;"
+                               th:text="${book.author}">
+                            </p>
+                        </li>
+
+                        <li class="list-group-item"><span class="font-weight-bold">Publisher:</span>
+                            <p class="m-0" style="display: inline-block;"
+                               th:text="${book.publisher}">
+                            </p>
+                        </li>
+                        <li class="list-group-item"><span class="font-weight-bold">Available:</span>
+                            <p class="m-0" style="display: inline-block;"
+                               th:text="${book.disponible}">
+                            </p>
+                        </li>
+                        <li class="list-group-item"><span class="font-weight-bold">ISBN:</span>
+                            <p class="m-0" style="display: inline-block;"
+                               th:text="${book.ISBN}">
+                            </p>
+                        </li>
+                        <li class="list-group-item"><span class="font-weight-bold">Description:</span>
+                            <p class="m-0" style="display: inline-block;"
+                               th:text="${book.description}">
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

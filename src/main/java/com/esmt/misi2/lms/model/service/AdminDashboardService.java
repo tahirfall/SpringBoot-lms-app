@@ -30,7 +30,7 @@ public class AdminDashboardService {
         return loanDao.count();
     }
 
-    public int getNumberOfUser() {return userDao.countByRoleUser();}
+    public int getNumberOfSimpleUser() {return userDao.countByRoleUser();}
 
     public int getNumberAvailableBook() {return bookDao.countAvailableBook();}
 }

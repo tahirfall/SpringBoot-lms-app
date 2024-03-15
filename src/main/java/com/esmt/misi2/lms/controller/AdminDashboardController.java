@@ -15,13 +15,15 @@ public class AdminDashboardController {
     @GetMapping("/admin/dashboard")
     public String adminDashboard(Model model) {
         int numberOfBooks = adminDashboardService.getNumberOfBooks();
-        int numberOfUsers = adminDashboardService.getNumberOfUser();
+        int numberOfSimpleUsers = adminDashboardService.getNumberOfSimpleUser();
         int numberOfLoans = adminDashboardService.getNumberOfLoans();
         int numberOfAvailableBook = adminDashboardService.getNumberAvailableBook();
+        int numberOfUsers = adminDashboardService.getNumberOfUsers();
 
         // Ajoutez les données au modèle pour les rendre disponibles dans la vue
         model.addAttribute("numberOfBooks", numberOfBooks);
         model.addAttribute("numberOfUsers", numberOfUsers);
+        model.addAttribute("numberOfSimpleUsers", numberOfSimpleUsers);
         model.addAttribute("numberOfLoans", numberOfLoans);
         model.addAttribute("numberOfAvailableBook", numberOfAvailableBook);
 

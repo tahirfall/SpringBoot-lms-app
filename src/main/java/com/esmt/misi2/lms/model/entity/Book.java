@@ -30,6 +30,9 @@ public class Book implements Serializable {
 	@NotEmpty
 	private String author;
 
+	@NotEmpty
+	private String description;
+
 	@OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "book_id")
 	private List<Loan> loans;
@@ -99,6 +102,12 @@ public class Book implements Serializable {
 	}
 
 	public void setAuthor(String author) {this.author = author;}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {this.description = description;}
 
 	public boolean isDisponible() {
 		return disponible;

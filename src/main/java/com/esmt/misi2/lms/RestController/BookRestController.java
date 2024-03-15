@@ -46,6 +46,7 @@ public class BookRestController {
             // Mettre à jour les propriétés du livre existant avec les nouvelles valeurs
             existingBook.setTitle(book.getTitle());
             existingBook.setAuthor(book.getAuthor());
+            existingBook.setDescription(book.getDescription());
             existingBook.setDisponible(book.isDisponible());
             // Ajoutez d'autres propriétés à mettre à jour selon vos besoins
 
