@@ -9,32 +9,39 @@
 </head>
 <body>
 
-<header th:fragment="header0">
-	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #F4F6F6;">
+<header th:fragment="header0" class="px-5" style="background-color: #34495E;">
+	<nav class="navbar navbar-expand-lg navbar-light text-white" style="background-color: #7FB3D5;">
 		<div class="container-fluid">
 			<a class="navbar-brand">Library Management System</a>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item" >
-						<a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
+						<a class="nav-link active text-white" aria-current="page" th:href="@{/home}">Accueil</a>
 					</li>
 					<li class="nav-item" >
-						<a class="nav-link" th:href="@{/books/list-books}">Catalogue</a>
+						<a class="nav-link text-white" th:href="@{/books/list-books}">Catalogue</a>
 					</li>
 					<li class="nav-item" >
-						<a class="nav-link" th:href="@{/users/list-users}">Users</a>
+						<a class="nav-link text-white" th:href="@{/users/list-users}">Utilisateurs</a>
 					</li>
 					<li class="nav-item" >
-						<a class="nav-link" th:href="@{/loans/list-loans}">Loans</a>
+						<a class="nav-link text-white" th:href="@{/loans/list-loans}">Emprunts</a>
 					</li>
 					<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')" >
-						<a class="nav-link" th:href="@{/admin/dashboard}">Dashboard</a>
+						<a class="nav-link text-white" th:href="@{/admin/dashboard}">Tableau de bord</a>
 					</li>
+
 				</ul>
 			</div>
 			<ul class="navbar-nav navbar-right">
+				<li sec:authorize="hasRole('ROLE_ADMIN')" >
+					<a class="btn btn-info mr-5" th:href="@{/loanrequests/list-requests}">Consulter les demandes</a>
+				</li>
+				<li sec:authorize="hasRole('ROLE_USER')" >
+					<a class="btn btn-info mr-5" th:href="@{/loanrequests/user-requests}">Mes demandes</a>
+				</li>
 				<li sec:authorize="!isAuthenticated()">
-					<a th:href="@{/login}" class="btn btn-primary">Sign in</a>
+					<a th:href="@{/login}" class="btn btn-primary">Se Connecter</a>
 				</li>
 				<li sec:authorize="isAuthenticated()" class="dropdown show">
 					<a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -44,7 +51,7 @@
 					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 						<form id="logoutForm" th:action="@{/logout}" method="POST">
 							<button class="dropdown-item"
-									onclick="document.getElementById('logoutForm').submit();" type="submit">Sign Out
+									onclick="document.getElementById('logoutForm').submit();" type="submit">Se Deconnecter
 							</button>
 							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 						</form>
@@ -59,13 +66,13 @@
 	<div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
 </header>
 
-<header th:fragment="header1">
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<header th:fragment="header1" class="px-5">
+	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #F4F6F6;">
 		<h3 class="navbar-brand">Library Management System</h3>
 	</nav>
 </header>
 
-<footer th:fragment="footer" class="container-fluid py-3" style="background-color: #F4F6F6;">
+<footer th:fragment="footer" class="container-fluid px-5" style="background-color: #F4F6F6;">
 	<p class="text-center text-dark font-weight-bold">Copyright@esmt-misi2. All Rights Reserved.</p>
 	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	<script th:src="@{/js/popper.min.js}"></script>

@@ -24,7 +24,7 @@ public class SpringSecurityConfig {
 	
 	@Bean //autorisation
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().requestMatchers("/books/list-books", "/css/**", "/js/**", "/images/**", "/", "index", "/home")
+		http.authorizeRequests().requestMatchers("/books/list-books", "/css/**", "/js/**", "/images/**", "/", "index", "/home", "/error")
 			.permitAll()
 		.requestMatchers("/admin/dashboard").hasAnyRole("ADMIN")
 		.requestMatchers("/books/create-book").hasAnyRole("ADMIN")
@@ -32,6 +32,9 @@ public class SpringSecurityConfig {
 		.requestMatchers("/books/delete-book/**").hasAnyRole("ADMIN")
 		.requestMatchers("/books/search-results/**").permitAll()
 		.requestMatchers("/loans/**").hasAnyRole("ADMIN")
+		.requestMatchers("/loanrequests/view-loan").hasAnyRole("USER")
+		.requestMatchers("/loanrequests/user-requests").hasAnyRole("USER")
+		.requestMatchers("/loanrequests/list-requests").hasAnyRole("ADMIN")
 		.requestMatchers("/users/**").hasAnyRole("ADMIN")
 		.requestMatchers("/register").permitAll()
 		.requestMatchers("/register/success").permitAll()

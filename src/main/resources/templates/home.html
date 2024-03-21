@@ -1,19 +1,66 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout/layout :: head"></head>
-<body>
+<body style="background-color: #D5D8DC;">
 <header th:replace="layout/layout :: header0"></header>
 
-<div class="container mt-5">
+<div class="row p-3 ml-5 w-75 mh-auto mt-4" style=" margin-left: 70px;">
 
-    <h2 th:text="${welcomeMessage}"></h2>
-    <p>Follow the <a class="active"
-        th:href="@{/books/list-books}">link</a> to visit our catalogue of books.</p>
-    <img th:src="@{/images/home.png}" alt="ESMT library"/>
+    <div class="col p-3 w-75 mr-2 h-auto justify-content-center" style="margin-left:80px; background-color: #FFFFFF;">
+        <h4 th:text="${welcomeMessage}" class="py-3"></h4>
+        <p th:text="${Paragraph1}" class="py-3"></p>
+
+        <div class="row">
+            <div class="col-md-6 d-flex justify-content-center">
+                <img th:src="@{/images/inscription.png}" alt="ESMT library" class="img-thumbnail" style="max-width: 90px; height: auto; margin-bottom: 10px;"/>
+            </div>
+            <div class="col-md-6 d-flex justify-content-center">
+                <img th:src="@{/images/livre.png}" alt="ESMT library" class="img-thumbnail" style="max-width: 90px; height: auto; margin-bottom: 10px;"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 d-flex justify-content-center">
+                <img th:src="@{/images/biblio2.png}" alt="ESMT library" class="img-thumbnail" style="max-width: 90px; height: auto; margin-bottom: 10px;"/>
+            </div>
+            <div class="col-md-6 d-flex justify-content-center">
+                <img th:src="@{/images/biblio.png}" alt="ESMT library" class="img-thumbnail" style="max-width: 90px; height: auto; margin-bottom: 10px;"/>
+            </div>
+        </div>
+
+        <p th:text="${Paragraph2}" class="py-3"></p>
+    </div>
+
+
+    <div class="col px-2 pb-2 w-25 h-auto justify-content-center">
+        <div class="col p-3 w-75 h-auto" style="background-color: #F2F4F4;">
+            <h4 th:text="${Paragraph3}" class="py-3"></h4>
+            <ul>
+                <li>Mes Demandes</li>
+                <li>mes Emprunts</li>
+                <li>mes réservations</li>
+                <li>mes favoris</li>
+            </ul>
+        </div>
+        <div class="col p-2 mt-2 w-75 h-auto justify-content-center" style="background-color: #F2F4F4;">
+            <h4 th:text="${Paragraph4}" class="py-3"></h4>
+            <ul>
+                <li>Livres</li>
+                <li>Catégorie</li>
+                <li>Emprunter</li>
+                <li>Réserver</li>
+            </ul>
+        </div>
+        <div class="col p-2 mt-2 w-75 h-auto justify-content-center" style="background-color: #F2F4F4;">
+            <h4 th:text="${Paragraph5}" class="py-3"></h4>
+            <p th:text="${Paragraph6}" class="py-3"></p>
+        </div>
+    </div>
 
 </div>
 
-<footer th:replace="layout/layout :: footer"></footer>
+
+<!--footer th:replace="layout/layout :: footer"></footer-->
 </body>
 </html>
 

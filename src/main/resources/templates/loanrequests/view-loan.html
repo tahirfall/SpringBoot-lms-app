@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header0"></header>
+
+<div class="container-fluid mt-4">
+    <h3 th:text="${title}" class="text-center mt-5 mb-5">title</h3>
+
+    <div class="col-8 mx-auto my-2">
+
+        <div class="d-flex justify-content-end mb-2">
+            <a class="btn btn-warning"
+               th:href="@{'/loanrequests/user-requests'}">&laquo; Return
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    <p class="text-center font-weight-bold"
+                       th:text="'For name: ' + ${loan.user.name} "></p>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><span class="font-weight-bold">Book:</span>
+                        <p class="m-0" style="display: inline-block;"
+                           th:text="${loan.book.title}">
+                        </p>
+                    </li>
+
+                    <li class="list-group-item"><span class="font-weight-bold">Publisher:</span>
+                        <p class="m-0" style="display: inline-block;"
+                           th:text="${loan.book.publisher}">
+                        </p>
+                    </li>
+
+                    <li class="list-group-item"><span class="font-weight-bold">Return Date:</span>
+                        <p class="m-0" style="display: inline-block;"
+                           th:text="${#dates.format(loan.returnDate, 'dd-MMM-yyyy')}">
+                        </p>
+                    </li>
+
+                    <li class="list-group-item"><span class="font-weight-bold">Returned:</span>
+                        <p class="m-0" style="display: inline-block;"
+                           th:text="${loan.returned} ? 'Yes' : 'No'">
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer text-center">
+                <form th:action="@{/loanrequests/return-loan/{id}(id=${loan.id})}" method="post" style="display: inline;" th:if="${!loan.returned}">
+                    <button type="submit" class="btn btn-info">Rendre</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>

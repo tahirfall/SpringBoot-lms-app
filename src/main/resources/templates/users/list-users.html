@@ -4,13 +4,13 @@
 <body>
 	<header th:replace="layout/layout :: header0"></header>
 
-	<div class="container">
-		<h3 th:text="${title}" class="text-center mt-5 mb-5">users list</h3>
-		
-		<div class="d-flex justify-content-end mb-2" sec:authorize="hasRole('ROLE_ADMIN')">
-			<a class="btn btn-success" th:href="@{/users/create-user}">New user</a>
+	<div class="container mt-4">
+		<div class="d-flex justify-content-end mt-5 mb-3" sec:authorize="hasRole('ROLE_ADMIN')">
+			<a class="btn btn-outline-success" th:href="@{/users/create-user}">New user</a>
 		</div>
-
+		<div class="catalogue w-100 mb-5 bg-info text-white text-start d-flex align-items-center" style="height: 38px; font-size: 1.5em;">
+			<p class="px-5">UTILISATEURS</p>
+		</div>
 		<p th:if="${users.isEmpty()}" th:text="'No users available'"></p>
 
 		<div class="row d-flex justify-content-center">

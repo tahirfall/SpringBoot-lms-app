@@ -1,13 +1,10 @@
 package com.esmt.misi2.lms.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
-import com.esmt.misi2.lms.model.entity.Book;
-import com.esmt.misi2.lms.model.entity.Loan;
-import com.esmt.misi2.lms.model.entity.UserModel;
-import com.esmt.misi2.lms.model.service.IBookService;
-import com.esmt.misi2.lms.model.service.ILoanService;
-import com.esmt.misi2.lms.model.service.IUserService;
+import com.esmt.misi2.lms.model.entity.*;
+import com.esmt.misi2.lms.model.service.*;
 import com.esmt.misi2.lms.util.paginator.PageRender;
 import jakarta.validation.Valid;
 
@@ -20,12 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -42,7 +34,10 @@ public class LoanController {
 	
 	@Autowired
 	private IBookService bookService;
-	
+
+	@Autowired
+	private ILoanRequestService loanRequestService;
+
 	@SuppressWarnings("unused")
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
@@ -79,40 +74,38 @@ public class LoanController {
 		
 		return "loans/new-loan";
 	}
-	
+
 	@PostMapping("/create-loan")
-	public String saveLoan(@RequestParam(name = "book", required = false) Long bookId,
-								  @RequestParam(name = "user", required = false) Long userId,
-								  @Valid Loan loan, BindingResult result, Model model,
-								  SessionStatus status, RedirectAttributes flash) {
-		
-		List<UserModel> users = userService.findAll();
-		List<Book> books = bookService.findAll();
-		
-		Book book = bookService.findOne(bookId);
-		UserModel user = userService.findOne(userId);
-		
-		if(result.hasErrors()) {
-			model.addAttribute("title", "create a new loan");
-			model.addAttribute("loan", loan);
+	public String saveLoan(@ModelAttribute("loan") Loan loan, BindingResult result, Model model,
+						   SessionStatus status, RedirectAttributes flash) {
+
+		if (result.hasErrors()) {
+			List<UserModel> users = userService.findAll();
+			List<Book> books = bookService.findAll();
+			model.addAttribute("title", "Accept a loan request");
 			model.addAttribute("users", users);
 			model.addAttribute("books", books);
-	
 			return "loans/new-loan";
 		}
-		
-		loan.setBook(book);
-		loan.setUser(user);
 
-        loan.setReturned(loan.getReturned());
-		
+		loan.setReturned(loan.getReturned());
 		loanService.save(loan);
+
+		// Supprimez la demande associée
+		LoanRequest loanRequest = loanRequestService.findByUserAndBook(loan.getUser(), loan.getBook());
+		if (loanRequest != null) {
+			loanRequest.setStatus(RequestStatus.ACCEPTED);
+			loanRequestService.save(loanRequest);
+		}
+
 		status.setComplete();
-		flash.addFlashAttribute("success", "loan created successfully!!");
-		
-		return "redirect:/loans/list-loans";
+		flash.addFlashAttribute("success", "loan request accepted!!");
+
+		return "redirect:/loanrequests/list-requests";
 	}
-	
+
+
+
 	@GetMapping("/edit-loan/{id}")
 	public String editLoan(@PathVariable Long id, Model model, RedirectAttributes flash) {
 
@@ -165,6 +158,42 @@ public class LoanController {
 		
 		return "redirect:/loans/list-loans";
 	}
-	
+
+	@PostMapping("/approve-request/{id}")
+	public String approveRequest(@PathVariable Long id, Model model) {
+
+		LoanRequest loanRequest = loanRequestService.findOne(id);
+		if (loanRequest != null) {
+			// Pré-remplissez les informations du prêt avec celles de la demande approuvée
+			Loan loan = new Loan();
+			loan.setUser(loanRequest.getUser());
+			loan.setBook(loanRequest.getBook());
+			loan.setReturnDate(loan.getReturnDate()); // Définissez la date de retour par défaut
+
+			model.addAttribute("title", "Create a new loan");
+			model.addAttribute("loan", loan);
+			return "loans/new-loan";
+		} else {
+			// Gérez le cas où la demande de prêt n'est pas trouvée
+			return "redirect:/loanrequests/list-requests";
+		}
+	}
+
+
+	@PostMapping("/reject-request/{id}")
+	public String rejectRequest(@PathVariable Long id, RedirectAttributes flash) {
+		LoanRequest loanRequest = loanRequestService.findOne(id);
+		if (loanRequest != null) {
+			loanRequest.setStatus(RequestStatus.REJECTED);
+			loanRequestService.save(loanRequest);
+			flash.addFlashAttribute("success", "Request rejected successfully!");
+		} else {
+			flash.addFlashAttribute("error", "Request not found!");
+		}
+		return "redirect:/loanrequests/list-requests";
+
+	}
+
+
 }
 

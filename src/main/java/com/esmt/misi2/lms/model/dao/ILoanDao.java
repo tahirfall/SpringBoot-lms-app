@@ -1,6 +1,9 @@
 package com.esmt.misi2.lms.model.dao;
 
+import com.esmt.misi2.lms.model.entity.Book;
 import com.esmt.misi2.lms.model.entity.Loan;
+import com.esmt.misi2.lms.model.entity.LoanRequest;
+import com.esmt.misi2.lms.model.entity.UserModel;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -15,6 +18,7 @@ public interface ILoanDao extends PagingAndSortingRepository<Loan, Long>{
 	void save(Loan loan);
 
 	Optional<Loan> findById(Long id);
+	Loan findByUserAndBook(UserModel user, Book book);
 
 	void deleteById(Long id);
 

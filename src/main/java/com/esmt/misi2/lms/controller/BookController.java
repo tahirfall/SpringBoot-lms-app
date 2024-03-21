@@ -38,7 +38,7 @@ public class BookController {
 	@GetMapping("/list-books")
 	public String listBooks(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 
-		Pageable pageable = PageRequest.of(page, 6);
+		Pageable pageable = PageRequest.of(page, 4);
 
 		Page<Book> books = bookService.findAll(pageable);
 
@@ -96,12 +96,11 @@ public class BookController {
 		// Vérifiez si une image est téléchargée
 		if (!image.isEmpty()) {
 			try {
-				// Convertissez l'image en tableau de bytes et stockez-le dans l'entité Book
 				book.setImageContent(image.getBytes());
 				book.setImageType(image.getContentType());
 			} catch (IOException e) {
 				e.printStackTrace();
-				// Gérez l'erreur de manière appropriée
+
 			}
 		}
 

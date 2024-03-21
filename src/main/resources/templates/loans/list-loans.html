@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="layout/layout :: head"></head>
 <body>
 	<header th:replace="layout/layout :: header0"></header>
 
-	<div class="container">
-		<h3 th:text="${title}" class="text-center mt-5 mb-5">title</h3>
-		
-		
-		<div class="d-flex justify-content-end mb-2" sec:authorize="hasRole('ROLE_ADMIN')">
-			<a class="btn btn-success" th:href="@{/loans/create-loan}">New Loan</a>
+	<div class="container mt-4">
+		<div class="d-flex justify-content-end mt-5 mb-3" sec:authorize="hasRole('ROLE_ADMIN')">
+			<a class="btn btn-outline-success" th:href="@{/loans/create-loan}">New Loan</a>
+		</div>
+		<div class="catalogue w-95 mb-5 bg-info text-white text-start d-flex align-items-center" style="height: 38px; font-size: 1.5em;">
+			<p class="px-5">EMPRUNTS</p>
 		</div>
 
 		<p th:if="${loans.isEmpty()}" th:text="'No loans available'"></p>

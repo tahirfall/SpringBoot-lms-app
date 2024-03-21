@@ -3,7 +3,9 @@ package com.esmt.misi2.lms.model.service;
 
 import java.util.List;
 
+import com.esmt.misi2.lms.model.entity.Book;
 import com.esmt.misi2.lms.model.entity.Loan;
+import com.esmt.misi2.lms.model.entity.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +39,11 @@ public class LoanServiceImpl implements ILoanService {
 	@Override
 	public Loan findOne(Long id) {
 		return loanDao.findById(id).orElse(null);
+	}
+
+	@Override
+	public Loan findByUserAndBook(UserModel user, Book book) {
+		return loanDao.findByUserAndBook(user, book);
 	}
 
 	@Override

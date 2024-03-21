@@ -52,6 +52,7 @@ public class BookServiceImpl implements IBookService {
 	public List<Book> search(String keyword) {return bookDao.search(keyword);}
 
 
+
 	public byte[] getImageContentById(Long id) throws FileNotFoundException {
 		Optional<Book> bookOptional = bookDao.findById(id);
 
@@ -59,19 +60,7 @@ public class BookServiceImpl implements IBookService {
 			Book book = bookOptional.get();
 			byte[] originalImage = book.getImageContent();
 
-			try (ByteArrayOutputStream resizedImageStream = new ByteArrayOutputStream()) {
-				// Redimensionner l'image à la taille souhaitée (par exemple, 250x200)
-				Thumbnails.of(new ByteArrayInputStream(originalImage))
-						.size(250, 200)
-						.outputFormat("jpg")  // ajustez le format de sortie si nécessaire
-						.toOutputStream(resizedImageStream);
-
-				return resizedImageStream.toByteArray();
-			} catch (IOException e) {
-				e.printStackTrace();
-				// Gérer l'erreur de manière appropriée
-				throw new RuntimeException("Erreur lors de la redimension de l'image");
-			}
+			return originalImage;
 		} else {
 			// Gérer le cas où aucun livre avec l'ID spécifié n'est trouvé
 			throw new FileNotFoundException("Livre non trouvé avec l'ID : " + id);
