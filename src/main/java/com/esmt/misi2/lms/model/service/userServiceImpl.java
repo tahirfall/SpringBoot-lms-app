@@ -38,8 +38,8 @@ public class userServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void delete(Long id) {
-		userDao.deleteById(id);
+	public List<UserModel> delete(Long id) {
+		return userDao.deleteById(id);
 	}
 
 	@Override

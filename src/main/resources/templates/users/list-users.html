@@ -5,10 +5,12 @@
 	<header th:replace="layout/layout :: header0"></header>
 
 	<div class="container mt-4">
-		<div class="d-flex justify-content-end mt-5 mb-3" sec:authorize="hasRole('ROLE_ADMIN')">
-			<a class="btn btn-outline-success" th:href="@{/users/create-user}">New user</a>
+		<div class="row justify-content-center w-auto pt-5 pb-3" style="background-color: #7FB3D5; height:50px;">
+			<div class="col-12 text-center mb-2" sec:authorize="hasRole('ROLE_ADMIN')">
+				<a class="btn btn-success" th:href="@{/users/create-user}">New user</a>
+			</div>
 		</div>
-		<div class="catalogue w-100 mb-5 bg-info text-white text-start d-flex align-items-center" style="height: 38px; font-size: 1.5em;">
+		<div class="catalogue w-100 mb-5 text-white text-start d-flex align-items-center" style="background-color: #34495E; height: 38px; font-size: 1.5em;">
 			<p class="px-5">UTILISATEURS</p>
 		</div>
 		<p th:if="${users.isEmpty()}" th:text="'No users available'"></p>

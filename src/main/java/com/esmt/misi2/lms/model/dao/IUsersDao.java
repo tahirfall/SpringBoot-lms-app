@@ -18,7 +18,7 @@ public interface IUsersDao extends PagingAndSortingRepository<UserModel, Long>{
 
 	Optional<UserModel> findById(Long id);
 
-	void deleteById(Long id);
+	List<UserModel> deleteById(Long id);
 
 	List<UserModel> findAll();
 

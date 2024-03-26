@@ -9,49 +9,45 @@
 <header th:replace="layout/layout :: header0"></header>
 
 <div class="container mt-4">
-    <div class="catalogue w-95 p-2 bg-info text-white text-start d-flex align-items-center" style="height: 38px; font-size: 1.5em;">
+    <div class="catalogue w-95 p-2 text-white text-start d-flex align-items-center" style="background-color: #34495E; height: 38px; font-size: 1.5em;">
         <p class="px-5">TABLEAU DE BORD</p>
     </div>
-    <div class="row mt-5 justify-content-center">
-        <div class="col-md-4">
-            <div class="card bg-light">
-                <div class="card-body text-info text-center">
+    <div class="row mt-5 justify-content-center" style="background-color: #34495E;">
+        <div class="col-md-4" style="background-color:#D57FA1;">
+            <div>
+                <div class="card-body text-center">
                     <h5 class="card-title">Number of Books</h5>
                     <p class="card-text" th:text="${numberOfBooks}"></p>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card bg-light">
-                <div class="card-body text-info text-center">
+        <div class="col-md-4" style="background-color:#D57FA1;">
+            <div>
+                <div class="card-body text-center">
                     <h5 class="card-title">Number of Available Books</h5>
                     <p class="card-text" th:text="${numberOfAvailableBook}"></p>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-5 justify-content-center">
-        <div class="col-md-4">
-            <div class="card bg-light">
-                <div class="card-body text-info text-center">
+        <div class="col-md-4" style="background-color:#D57FA1;">
+            <div>
+                <div class="card-body text-center">
                     <h5 class="card-title">Number of Loans</h5>
                     <p class="card-text" th:text="${numberOfLoans}"></p>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-5 justify-content-center">
-        <div class="col-md-4">
-            <div class="card bg-light">
-                <div class="card-body text-info text-center">
+        <div class="col-md-4" style="background-color:#D57FA1;">
+            <div >
+                <div class="card-body text-center">
                     <h5 class="card-title">Number of Users</h5>
                     <p class="card-text" th:text="${numberOfUsers}"></p>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card bg-light">
-                <div class="card-body text-info text-center">
+        <div class="col-md-4" style="background-color:#D57FA1;">
+            <div>
+                <div class="card-body text-center">
                     <h5 class="card-title">Number of Simple Users</h5>
                     <p class="card-text" th:text="${numberOfSimpleUsers}"></p>
                 </div>

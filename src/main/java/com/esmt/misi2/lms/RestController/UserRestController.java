@@ -1,10 +1,13 @@
 package com.esmt.misi2.lms.RestController;
 
+import com.esmt.misi2.lms.exceptions.BookNotFoundException;
 import com.esmt.misi2.lms.exceptions.UserNotFoundException;
 import com.esmt.misi2.lms.model.entity.UserModel;
 import com.esmt.misi2.lms.model.service.IUserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,30 +24,29 @@ public class UserRestController {
     private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/list-users")
-    public List<UserModel> listUsers() {
-        return userService.findAll();
+    public ResponseEntity<List<UserModel>> listUsers() {
+        return ResponseEntity.ok(userService.findAll());
     }
 
-    @GetMapping("/{id}")
-    public UserModel getUser(@PathVariable Long id) {
-        return userService.findOne(id);
+    @GetMapping("/user/{id}")
+    public ResponseEntity<UserModel> getUser(@PathVariable Long id) {
+        UserModel user = userService.findOne(id);
+        if(user != null)
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/create-user")
-    public UserModel saveUser(@Valid @RequestBody UserModel user) {
+    public ResponseEntity<UserModel> saveUser(@Valid @RequestBody UserModel user) {
         // Encrypt the password before saving it
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        //user.setEnabled(true);
-        // Set default role (ROLE_USER)
-        // user.setRole(UserRole.ROLE_USER);
-        //user.setRole(user.getRole());
-        //user.setEnabled(true);
-        return userService.save(user);
+        return ResponseEntity.ok(userService.save(user));
     }
 
 
     @PutMapping("/edit-user/{id}")
-    public UserModel editUser(@PathVariable Long id, @Valid @RequestBody UserModel user) {
+    public ResponseEntity<UserModel> editUser(@PathVariable Long id, @Valid @RequestBody UserModel user) {
         UserModel existingUser = userService.findOne(id);
 
         if (existingUser != null) {
@@ -56,21 +58,22 @@ public class UserRestController {
             existingUser.setEnabled(user.getEnabled());
             existingUser.setRole(user.getRole());
 
-            return userService.save(existingUser);
+            return ResponseEntity.ok(userService.save(existingUser));
         } else {
-            throw new UserNotFoundException("User not found with id: " + id);
+            throw new UserNotFoundException("User with id: " + id + " not found");
         }
     }
 
 
 
     @DeleteMapping("/delete-user/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userService.delete(id);
+    public ResponseEntity<List<UserModel>> deleteUser(@PathVariable Long id) {
+
+        return ResponseEntity.ok(userService.delete(id));
     }
 
     @GetMapping("/detail/{id}")
-    public UserModel detailUser(@PathVariable Long id) {
-        return userService.fetchByIdWithLoans(id);
+    public ResponseEntity<UserModel> detailUser(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.fetchByIdWithLoans(id));
     }
 }

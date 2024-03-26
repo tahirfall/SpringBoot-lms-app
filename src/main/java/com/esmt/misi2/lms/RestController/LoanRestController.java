@@ -1,6 +1,7 @@
 package com.esmt.misi2.lms.RestController;
 
 import com.esmt.misi2.lms.exceptions.LoanNotFoundException;
+import com.esmt.misi2.lms.exceptions.UserNotFoundException;
 import com.esmt.misi2.lms.model.entity.Book;
 import com.esmt.misi2.lms.model.entity.Loan;
 import com.esmt.misi2.lms.model.entity.UserModel;
@@ -9,6 +10,8 @@ import com.esmt.misi2.lms.model.service.IBookService;
 import com.esmt.misi2.lms.model.service.IUserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,61 +30,63 @@ public class LoanRestController {
     private IBookService bookService;
 
     @GetMapping("/list-loans")
-    public List<Loan> listLoans() {
-        return loanService.findAll();
+    public ResponseEntity<List<Loan>> listLoans() {
+        List<Loan> loans = loanService.findAll();
+        return ResponseEntity.ok(loans);
     }
 
-    @GetMapping("/{id}")
-    public Loan getLoan(@PathVariable Long id) {
-        return loanService.findOne(id);
+    @GetMapping("/loan/{id}")
+    public ResponseEntity<Loan> getLoan(@PathVariable Long id) {
+        Loan loan = loanService.findOne(id);
+        if (loan != null) {
+            return ResponseEntity.ok(loan);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/create-loan")
-    public Loan saveLoan(@RequestParam(name = "book", required = false) Long bookId,
-                         @RequestParam(name = "user", required = false) Long userId,
-                         @Valid @RequestBody Loan loan) {
-        List<UserModel> users = userService.findAll();
-        List<Book> books = bookService.findAll();
-
+    public ResponseEntity<Loan> saveLoan(@RequestParam(name = "book", required = false) Long bookId,
+                                         @RequestParam(name = "user", required = false) Long userId,
+                                         @Valid @RequestBody Loan loan) {
         Book book = bookService.findOne(bookId);
         UserModel user = userService.findOne(userId);
 
         loan.setBook(book);
         loan.setUser(user);
 
-        loan.setReturned(loan.getReturned());
-
-        return loanService.save(loan);
+        Loan savedLoan = loanService.save(loan);
+        return ResponseEntity.ok(savedLoan);
     }
 
-
     @PutMapping("/edit-loan/{id}")
-    public Loan editLoan(@PathVariable Long id, @Valid @RequestBody Loan loan) {
+    public ResponseEntity<Loan> editLoan(@PathVariable Long id, @Valid @RequestBody Loan loan) {
         Loan existingLoan = loanService.findOne(id);
-
         if (existingLoan != null) {
-            // Mettre à jour les propriétés du prêt existant avec les nouvelles valeurs
             existingLoan.setBook(loan.getBook());
             existingLoan.setUser(loan.getUser());
             existingLoan.setReturned(loan.getReturned());
 
-            return loanService.save(existingLoan);
+            Loan updatedLoan = loanService.save(existingLoan);
+            return ResponseEntity.ok(updatedLoan);
         } else {
-            // Gérer le cas où le prêt n'est pas trouvé
-            throw new LoanNotFoundException("Loan not found with id: " + id);
+            throw new LoanNotFoundException("Loan with id: " + id + " not found");
         }
     }
 
-
-
     @GetMapping("/detail/{id}")
-    public Loan detailLoan(@PathVariable Long id) {
-        return loanService.findLoanByIdWithBooks(id);
+    public ResponseEntity<Loan> detailLoan(@PathVariable Long id) {
+        Loan loan = loanService.findLoanByIdWithBooks(id);
+        if (loan != null) {
+            return ResponseEntity.ok(loan);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/delete-loan/{id}")
-    public void deleteLoan(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteLoan(@PathVariable Long id) {
         loanService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
-
