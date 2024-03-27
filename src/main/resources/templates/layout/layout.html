@@ -21,11 +21,16 @@
 					<li class="nav-item" >
 						<a class="nav-link text-white" th:href="@{/books/list-books}">Catalogue</a>
 					</li>
-					<li class="nav-item" >
-						<a class="nav-link text-white" th:href="@{/users/list-users}">Utilisateurs</a>
-					</li>
-					<li class="nav-item" >
-						<a class="nav-link text-white" th:href="@{/loans/list-loans}">Emprunts</a>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownServices" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Services
+						</a>
+						<div class="dropdown-menu text-white" aria-labelledby="navbarDropdownServices" style="background-color: #7FB3D5;">
+								<a class="dropdown-item text-white" href="/users/list-users" sec:authorize="hasRole('ROLE_ADMIN')">Utilisateurs</a>
+								<a class="dropdown-item text-white" href="/loans/list-loans" sec:authorize="hasRole('ROLE_ADMIN')">Emprunts</a>
+								<a class="dropdown-item text-white" th:href="@{/loanrequests/list-requests}" sec:authorize="hasRole('ROLE_ADMIN')">Consulter les demandes</a>
+								<a class="dropdown-item text-white" th:href="@{/loanrequests/user-requests}" sec:authorize="hasRole('ROLE_USER')">Mes demandes</a>
+						</div>
 					</li>
 					<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')" >
 						<a class="nav-link text-white" th:href="@{/admin/dashboard}">Tableau de bord</a>
@@ -34,12 +39,7 @@
 				</ul>
 			</div>
 			<ul class="navbar-nav navbar-right">
-				<li sec:authorize="hasRole('ROLE_ADMIN')" >
-					<a class="btn btn-info mr-5" th:href="@{/loanrequests/list-requests}">Consulter les demandes</a>
-				</li>
-				<li sec:authorize="hasRole('ROLE_USER')" >
-					<a class="btn btn-info mr-5" th:href="@{/loanrequests/user-requests}">Mes demandes</a>
-				</li>
+
 				<li sec:authorize="!isAuthenticated()">
 					<a th:href="@{/login}" class="btn btn-primary">Se Connecter</a>
 				</li>
