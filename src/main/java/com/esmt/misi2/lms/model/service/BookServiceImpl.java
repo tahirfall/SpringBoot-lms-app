@@ -22,6 +22,7 @@ public class BookServiceImpl implements IBookService {
 	@Autowired
 	private IBookDao bookDao;
 
+
 	@Override
 	public List<Book> findAll() {
 		return (List<Book>) bookDao.findAll();
@@ -67,6 +68,9 @@ public class BookServiceImpl implements IBookService {
 		}
 	}
 
+	public BookServiceImpl(IBookDao bookDao) {
+		this.bookDao = bookDao;
+	}
 
 }
 

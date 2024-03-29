@@ -17,17 +17,17 @@ public class LoginController {
 			RedirectAttributes flash) {
 
 		if (principal != null) {
-			flash.addFlashAttribute("info", "Connected.");
+			flash.addFlashAttribute("info", "Connecté.");
 			return "redirect:/home";
 		}
 
 		if (error != null) {
-			model.addAttribute("error", "Login error: Incorrect username or password, "
+			model.addAttribute("error", "Erreur de connexion: Nom d'utilisateur ou mot de passe est incorrecte, "
 					+ "Please try again!!");
 		}
 
 		if (logout != null) {
-			model.addAttribute("success", "You have successfully logged out!");
+			model.addAttribute("success", "Déconnexion réussie avec succès!");
 		}
 
 		return "login";

@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="layout/layout :: head"></head>
-<body>
+<body style="background-color: #eee;">
 	<header th:replace="layout/layout :: header0"></header>
 
-	<div class="container mt-4">
-		<div class="d-flex justify-content-end mt-5 mb-3" sec:authorize="hasRole('ROLE_ADMIN')">
-			<a class="btn btn-outline-success" th:href="@{/loans/create-loan}">New Loan</a>
-		</div>
+	<div class="container my-5">
 		<div class="catalogue w-95 mb-5 text-white text-start d-flex align-items-center" style="background-color: #34495E; height: 38px; font-size: 1.5em;">
 			<p class="px-5">EMPRUNTS</p>
 		</div>
@@ -57,7 +54,7 @@
 
 			</div>
 		</div>
-		<div class="row justify-content-center mt-5">
+		<div class="row justify-content-center my-5">
 			<nav th:replace="paginator-nav :: paginator"></nav>
 		</div>
 		

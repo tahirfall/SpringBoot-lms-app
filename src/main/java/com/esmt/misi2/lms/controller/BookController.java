@@ -38,13 +38,13 @@ public class BookController {
 	@GetMapping("/list-books")
 	public String listBooks(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 
-		Pageable pageable = PageRequest.of(page, 4);
+		Pageable pageable = PageRequest.of(page, 9);
 
 		Page<Book> books = bookService.findAll(pageable);
 
 		PageRender<Book> pageRender = new PageRender<>("/books/list-books", books);
 
-		model.addAttribute("title", "List of books");
+		model.addAttribute("title", "List des livres");
 		model.addAttribute("books", books);
 		model.addAttribute("page", pageRender);
 
@@ -55,7 +55,7 @@ public class BookController {
 	public String createBook(Model model) {
 
 
-		model.addAttribute("title", "Add a new book");
+		model.addAttribute("title", "Ajouter d'un nouveau livre");
 		Book book = new Book();
 
 		model.addAttribute("book", book);
@@ -88,7 +88,7 @@ public class BookController {
 							 SessionStatus status, RedirectAttributes flash) {
 
 		if (result.hasErrors()) {
-			model.addAttribute("title", "Add a new book");
+			model.addAttribute("title", "Ajout d'un nouveau livre");
 			model.addAttribute("book", book);
 			return "books/new-book";
 		}
@@ -106,7 +106,7 @@ public class BookController {
 
 		bookService.save(book);
 		status.setComplete();
-		flash.addFlashAttribute("success", "Book saved successfully");
+		flash.addFlashAttribute("success", "Livre enrgistré avec succès ");
 
 		return "redirect:/books/list-books";
 	}
@@ -122,14 +122,14 @@ public class BookController {
 			book = bookService.findOne(id);
 
 			if (book == null) {
-				flash.addFlashAttribute("error", "The book does not exist!!");
+				flash.addFlashAttribute("error", "Le livre n'existe pas!!");
 				return "redirect:/books/list-books";
 			}
 		} else {
 			return "redirect:/books/list-books";
 		}
 		
-		model.addAttribute("title", "Edit book");
+		model.addAttribute("title", "Modification du livre...");
 		model.addAttribute("book", book);
 
 		return "books/new-book";
@@ -140,7 +140,7 @@ public class BookController {
 		
 		if(id > 0) {
 			bookService.delete(id);
-			flash.addFlashAttribute("success", "book deleted successfully!!");
+			flash.addFlashAttribute("success", "Livre est supprimé avec succès!!");
 		}
 		
 		return "redirect:/books/list-books";
@@ -156,7 +156,7 @@ public class BookController {
 		}
 
 		model.addAttribute("book", book);
-		model.addAttribute("title", "Detail of book: " + book.getTitle());
+		model.addAttribute("title", "Detail du livre: " + book.getTitle());
 
 		return "books/detail";
 	}
@@ -165,7 +165,7 @@ public class BookController {
 	@GetMapping("/search-books")
 	public String searchBooks(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
 		List<Book> searchResults = bookService.search(keyword);
-		model.addAttribute("title", "Search Results");
+		model.addAttribute("title", "Résultats des recherches");
 		model.addAttribute("books", searchResults);
 		return "books/search-results";
 	}

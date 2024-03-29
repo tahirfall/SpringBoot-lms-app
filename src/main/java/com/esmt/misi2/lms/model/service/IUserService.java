@@ -18,7 +18,7 @@ public interface IUserService {
 	
 	public UserModel fetchByIdWithLoans(Long id);
 
-	public List<UserModel> delete(Long id);
+	public void delete(Long id);
 
 	public UserModel findByUsername(String username);
 }

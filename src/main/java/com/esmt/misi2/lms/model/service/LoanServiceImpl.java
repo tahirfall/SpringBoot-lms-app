@@ -20,6 +20,7 @@ public class LoanServiceImpl implements ILoanService {
 	@Autowired
 	private ILoanDao loanDao;
 
+
 	@Override
 	public List<Loan> findAll() {
 		return (List<Loan>) loanDao.findAll();
@@ -56,6 +57,9 @@ public class LoanServiceImpl implements ILoanService {
 		return loanDao.fetchByIdWithBooks(id);
 	}
 
+	public LoanServiceImpl(ILoanDao loanDao) {
+		this.loanDao = loanDao;
+	}
 }
 
 

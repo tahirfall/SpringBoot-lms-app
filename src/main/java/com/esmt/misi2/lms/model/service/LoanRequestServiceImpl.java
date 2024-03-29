@@ -17,6 +17,7 @@ public class LoanRequestServiceImpl implements ILoanRequestService {
     @Autowired
     private ILoanRequestDao loanRequestDao;
 
+
     @Override
     public List<LoanRequest> findAll() {
         return (List<LoanRequest>) loanRequestDao.findAll();
@@ -51,6 +52,10 @@ public class LoanRequestServiceImpl implements ILoanRequestService {
     @Override
     public List<LoanRequest> findByUser(UserModel user) {
         return loanRequestDao.findByUser(user);
+    }
+
+    public LoanRequestServiceImpl(ILoanRequestDao loanRequestDao) {
+        this.loanRequestDao = loanRequestDao;
     }
 }
 

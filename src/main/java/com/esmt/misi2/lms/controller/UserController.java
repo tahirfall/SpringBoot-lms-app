@@ -47,7 +47,7 @@ public class UserController {
 		
 		PageRender<UserModel> pageRender = new PageRender<>("/users/list-users", users);
 		
-		model.addAttribute("title", "list of users");
+		model.addAttribute("title", "liste des utilisateurs");
 		model.addAttribute("users", users);
 		model.addAttribute("page", pageRender);
 		
@@ -59,7 +59,7 @@ public class UserController {
 		
 		UserModel user = new UserModel();
 		
-		model.addAttribute("title", "Add a new user");
+		model.addAttribute("title", "Ajout d'un nouvel utilisateur");
 		model.addAttribute("user", user);
 		
 		return "users/new-user";
@@ -70,7 +70,7 @@ public class UserController {
 						   SessionStatus status, RedirectAttributes flash) {
 		
 		if(result.hasErrors()) {
-			model.addAttribute("title", "Add a new user");
+			model.addAttribute("title", "Ajout d'un nouvel utilisateur");
 			model.addAttribute("user", user);
 			return "users/new-user"; //html
 		}
@@ -85,7 +85,7 @@ public class UserController {
 
 		userService.save(user);
 		status.setComplete();
-		flash.addFlashAttribute("success", "Saved successfully");
+		flash.addFlashAttribute("success", "L'utilisateur est enregistré avec succès");
 		
 		return "redirect:/users/list-users";
 	}
@@ -101,14 +101,14 @@ public class UserController {
 			user = userService.findOne(id);
 			
 			if(user == null) {
-				flash.addFlashAttribute("error", "user does not exist!!");
+				flash.addFlashAttribute("error", "L'utilisateur n'existe pas!!");
 				return "redirect:/users/list-users";
 			}
 		}else {
 			return "redirect:/users/list-users";
 		}
 		
-		model.addAttribute("title", "edit user");
+		model.addAttribute("title", "Modification de l'utilisateur...");
 		model.addAttribute("user", user);
 		
 		return "users/new-user";
@@ -126,7 +126,7 @@ public class UserController {
 		
 		model.addAttribute("user", user);
 		//model.addAttribute("loan", loan);
-		model.addAttribute("title", "Detail of user: " + user.getName());
+		model.addAttribute("title", "Détail de l'utilisateur: " + user.getName());
 		
 		return "users/detail";
 	}
@@ -136,7 +136,7 @@ public class UserController {
 		
 		if(id > 0) {
 			userService.delete(id);
-			flash.addFlashAttribute("success", "user deleted successfully");
+			flash.addFlashAttribute("success", "Utilisateur supprimé avec succès");
 		}
 		
 		return "redirect:/users/list-users";

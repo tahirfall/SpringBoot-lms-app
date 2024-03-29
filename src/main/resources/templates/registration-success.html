@@ -4,10 +4,15 @@
     <meta charset="UTF-8"/>
     <title>Registration Success</title>
 </head>
-<body>
-<div>
-    <h2 th:text="${message}"></h2>
-    <a href="/login"><button>Back to Login</button></a>
+<body style="background-color: #eee;">
+<div class="container mt-5">
+    <div class="card text-center">
+        <div class="card-body">
+            <h2 class="card-title" th:text="${message}">You have successfully registered.</h2>
+            <p class="card-text">Please click the button below to go to the login page.</p>
+            <a href="/login" class="btn btn-primary">Back to Login</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

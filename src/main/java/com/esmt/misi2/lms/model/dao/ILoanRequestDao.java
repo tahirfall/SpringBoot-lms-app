@@ -4,14 +4,14 @@ import com.esmt.misi2.lms.model.entity.Book;
 import com.esmt.misi2.lms.model.entity.Loan;
 import com.esmt.misi2.lms.model.entity.LoanRequest;
 import com.esmt.misi2.lms.model.entity.UserModel;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface ILoanRequestDao extends PagingAndSortingRepository<LoanRequest, Long> {
+public interface ILoanRequestDao extends JpaRepository<LoanRequest, Long> {
 
-    void save(LoanRequest loanRequest);
 
     List<LoanRequest> findAll();
     Optional<LoanRequest> findById(Long id);

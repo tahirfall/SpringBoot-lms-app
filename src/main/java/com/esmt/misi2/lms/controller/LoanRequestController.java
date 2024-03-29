@@ -74,7 +74,7 @@ public class LoanRequestController {
 
     @GetMapping("/list-requests")
     public String listRequests(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
-        Pageable pageable = PageRequest.of(page, 5);
+        Pageable pageable = PageRequest.of(page, 20);
         Page<LoanRequest> requests = loanRequestService.findAllPaginable(pageable);
         PageRender<LoanRequest> pageRender = new PageRender<>("/loan/request/list-requests", requests);
         model.addAttribute("title", "List of Loan Requests");

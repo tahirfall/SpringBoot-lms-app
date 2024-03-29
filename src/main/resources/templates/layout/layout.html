@@ -32,9 +32,6 @@
 								<a class="dropdown-item text-white" th:href="@{/loanrequests/user-requests}" sec:authorize="hasRole('ROLE_USER')">Mes demandes</a>
 						</div>
 					</li>
-					<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')" >
-						<a class="nav-link text-white" th:href="@{/admin/dashboard}">Tableau de bord</a>
-					</li>
 
 				</ul>
 			</div>
@@ -66,14 +63,8 @@
 	<div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
 </header>
 
-<header th:fragment="header1" class="px-5">
-	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #F4F6F6;">
-		<h3 class="navbar-brand">Library Management System</h3>
-	</nav>
-</header>
-
-<footer th:fragment="footer" class="container-fluid px-5" style="background-color: #F4F6F6;">
-	<p class="text-center text-dark font-weight-bold">Copyright@esmt-misi2. All Rights Reserved.</p>
+<footer th:fragment="footer" class="container-fluid px-5 py-5 justify-content-center" style="background-color: #34495E; height:100px;">
+	<p class="text-center text-white font-weight-bold">Copyright@esmt-misi2-lms. All Rights Reserved.</p>
 	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	<script th:src="@{/js/popper.min.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>

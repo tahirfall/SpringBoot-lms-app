@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.esmt.misi2.lms.model.dao.IUsersDao;
 
 @Service
-public class userServiceImpl implements IUserService {
+public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	private IUsersDao userDao;
@@ -38,9 +38,9 @@ public class userServiceImpl implements IUserService {
 	}
 
 	@Override
-	public List<UserModel> delete(Long id) {
-		return userDao.deleteById(id);
-	}
+	public void delete(Long id) {
+		userDao.deleteById(id);
+    }
 
 	@Override
 	public UserModel findByUsername(String username) {
@@ -52,6 +52,9 @@ public class userServiceImpl implements IUserService {
 		return userDao.fetchByIdWithLoan(id);
 	}
 
+	public UserServiceImpl(IUsersDao userDao) {
+		this.userDao = userDao;
+	}
 }
 
 
