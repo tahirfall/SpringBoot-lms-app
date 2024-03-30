@@ -1,8 +1,12 @@
-FROM maven:3.8.5-openjdk-17 AS build
-COPY . .
-RUN mvn clean package -DskipTests
+## Production DokerFile
+FROM maven:3.8.3-openjdk-17 AS build
+WORKDIR /home/app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean install -Dmaven.test.skip=true
 
-FROM openjdk:17.0.1-jdk-slim
-COPY --from=build /target/spring-boot-lms-1.0.jar spring-boot-lms.jar
-EXPOSE 9797
+FROM openjdk:17
+WORKDIR /app
+COPY --from=build /home/app/target/spring-boot-lms-1.0.jar spring-boot-lms.jar
 ENTRYPOINT ["java", "-jar", "spring-boot-lms.jar"]
+EXPOSE 9797

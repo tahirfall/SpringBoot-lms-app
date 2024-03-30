@@ -1,0 +1,23 @@
+version: '3.1'
+services:
+  app_student:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - SPRING.JPA.DATABASE=MYSQL
+      - SPRING_DATASOURCE_URL=jdbc:mysql://monorail.proxy.rlwy.net:25967/railway
+      - SPRING_DATASOURCE_USERNAME=${root}
+      - SPRING_DATASOURCE_PASSWORD=${ZrZQcXmEVAfAmfowvfeoxVmAVwmkLJwz}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+    ports:
+      - ${APP_PORT_PROD}:9797
+    networks:
+      - lms_sb_app
+networks:
+  lms_sb_app:
+    driver: bridge
+volumes:
+  lms_sb_app:
