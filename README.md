@@ -7,4 +7,4 @@ est un système de gestions de bibliothèque pour  gérer les opérations, telle
 - Thymeleaf : Pour les templates HTML côté serveur.
 - Maven : Pour la gestion des dépendances et la construction du projet.
 - JUnit et Mockito : pour les tests unitaires et d’intégrations.
-- Intellij : comme ID
+- Intellij : comme IDE
